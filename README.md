@@ -31,4 +31,10 @@ _(se completa durante las semanas 2 a 4)_
 
 ## Resumen de commits
 
-_(ver la tabla al final de este archivo)_
+| # | Fecha | Hash | Mensaje | Zona | Cambio |
+|---|------------|---------|-------------------------------------------------------|-------|--------------------------|
+| 1 | 2026-09-06 | d21a70a | Initial commit | Global | Estructura base |
+| 2 | 2026-09-06 | 3900e20 | Delete README.md | Documentación | README |
+| 3 | 2026-09-06 | e002bac | Initialize README with project information | Documentación | README |
+| 4 | 2026-09-06 | 086c9d0 | Crear estructura del avance 1 y documentacion inicial | Global | Estructura, .gitignore y README |
+| 5 | 2026-09-06 | 452e4db | Merge branch 'main' of https://github.com/AndreinaLeal/innovation-hub | Global | Fusión de historial |
