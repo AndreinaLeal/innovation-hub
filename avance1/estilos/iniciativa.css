@@ -1,0 +1,104 @@
+/* avance1/estilos/iniciativa.css */
+
+.iniciativa {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.iniciativa__migas {
+  font-size: 0.875rem;
+  color: var(--color-texto-suave);
+  margin-bottom: 1.5rem;
+}
+
+.iniciativa__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 800px) {
+  .iniciativa__layout {
+    grid-template-columns: 2fr 1fr;
+    align-items: start;
+  }
+}
+
+.iniciativa__contenido {
+  max-width: 62ch;
+}
+
+.iniciativa__etiquetas {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.etiqueta {
+  font-size: 0.8125rem;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--color-linea);
+  border-radius: 3px;
+  color: var(--color-texto-suave);
+}
+
+.etiqueta--tipo {
+  border-color: var(--color-acento);
+  color: var(--color-acento);
+}
+
+.iniciativa__titulo {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.iniciativa__autor {
+  color: var(--color-texto-suave);
+  margin-bottom: 2rem;
+}
+
+.iniciativa__seccion {
+  border-top: 1px solid var(--color-linea);
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.lista-competencias {
+  padding-left: 1.25rem;
+}
+.lista-competencias li {
+  margin-bottom: 0.4rem;
+}
+.lista-competencias li::marker {
+  color: var(--color-acento-calido);
+}
+
+.iniciativa__panel {
+  border: 1px solid var(--color-linea);
+  border-radius: 4px;
+  padding: 1.5rem;
+  background: var(--color-superficie);
+  position: sticky;
+  top: 2rem;
+}
+
+.iniciativa__datos {
+  margin: 0 0 1.5rem;
+}
+.iniciativa__datos div {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--color-linea);
+  font-size: 0.9375rem;
+}
+.iniciativa__datos dt { color: var(--color-texto-suave); }
+.iniciativa__datos dd { margin: 0; font-weight: 600; }
+
+.iniciativa__panel-nota {
+  font-size: 0.8125rem;
+  color: var(--color-texto-suave);
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+}

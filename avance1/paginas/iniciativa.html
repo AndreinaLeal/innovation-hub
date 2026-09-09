@@ -1,0 +1,89 @@
+<!-- avance1/paginas/iniciativa.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Innovation Hub — Detalle de iniciativa</title>
+  <link rel="stylesheet" href="../estilos/base.css">
+  <link rel="stylesheet" href="../estilos/iniciativa.css">
+</head>
+<body>
+
+  <header class="sitio-header">
+    <a href="catalogo.html" class="sitio-header__marca">Innovation Hub</a>
+    <nav class="sitio-header__nav" aria-label="Navegación principal">
+      <a href="catalogo.html">Explorar iniciativas</a>
+      <a href="publicar.html">Publicar iniciativa</a>
+      <a href="perfil.html">Mi perfil</a>
+    </nav>
+  </header>
+
+  <main class="iniciativa">
+
+    <nav class="iniciativa__migas" aria-label="Ruta de navegación">
+      <a href="catalogo.html">Iniciativas</a> / <span aria-current="page">Tutorías entre pares</span>
+    </nav>
+
+    <div class="iniciativa__layout">
+
+      <article class="iniciativa__contenido">
+
+        <div class="iniciativa__etiquetas">
+          <span class="etiqueta etiqueta--tipo">Reto</span>
+          <span class="etiqueta etiqueta--visibilidad">Institucional</span>
+        </div>
+
+        <h1 class="iniciativa__titulo">Reducir el tiempo de asignación de tutorías entre pares</h1>
+
+        <p class="iniciativa__autor">Publicado por <strong>María Fernández</strong> · Escuela de Software</p>
+
+        <section class="iniciativa__seccion" aria-labelledby="descripcion-titulo">
+          <h2 id="descripcion-titulo">Descripción</h2>
+          <p>
+            Actualmente los estudiantes que solicitan apoyo académico esperan en promedio
+            cinco días para que se les asigne un tutor, porque la coordinación se hace por
+            correo y hojas de cálculo. Buscamos un equipo que proponga una forma de emparejar
+            solicitudes con tutores disponibles según materia y horario.
+          </p>
+        </section>
+
+        <section class="iniciativa__seccion" aria-labelledby="competencias-titulo">
+          <h2 id="competencias-titulo">Competencias requeridas</h2>
+          <ul class="lista-competencias">
+            <li>Diseño de experiencia de usuario</li>
+            <li>Desarrollo backend con bases de datos relacionales</li>
+            <li>Análisis de procesos académicos</li>
+          </ul>
+        </section>
+
+      </article>
+
+      <aside class="iniciativa__panel" aria-label="Acciones sobre la iniciativa">
+
+        <dl class="iniciativa__datos">
+          <div>
+            <dt>Estado</dt>
+            <dd>Buscando equipo</dd>
+          </div>
+          <div>
+            <dt>Miembros actuales</dt>
+            <dd>1 (la propietaria)</dd>
+          </div>
+        </dl>
+
+        <button type="button" class="boton boton--primario">Solicitar participación</button>
+        <p class="iniciativa__panel-nota">La propietaria revisará tu solicitud antes de aceptarte en el equipo.</p>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <footer class="sitio-footer">
+    <p>Innovation Hub — Universidad CENFOTEC</p>
+  </footer>
+
+</body>
+</html>
