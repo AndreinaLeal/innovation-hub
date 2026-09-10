@@ -1,0 +1,168 @@
+<!-- avance1/paginas/publicar.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Innovation Hub — Publicar iniciativa</title>
+<link rel="stylesheet" href="../estilos/styles.css">
+</head>
+<body>
+
+<header class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+    <a href="catalogo.html" class="navbar-brand fw-bold">Innovation Hub</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navPrincipal" aria-controls="navPrincipal" aria-expanded="false" aria-label="Abrir navegación">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <nav class="collapse navbar-collapse" id="navPrincipal" aria-label="Principal">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="publicar.html">Publicar iniciativa</a></li>
+        <li class="nav-item"><a class="nav-link" href="proyectos.html">Proyectos</a></li>
+        <li class="nav-item"><a class="nav-link" href="perfil.html">Mi perfil</a></li>
+        <li class="nav-item"><a class="nav-link" href="solicitudes.html">Mis solicitudes</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <h1 class="h2">Publicar una iniciativa</h1>
+      <p class="text-muted mb-4">
+        Comparte una idea, una necesidad o un reto, y describe qué competencias
+        necesitas para llevarla adelante.
+      </p>
+
+      <form novalidate>
+
+        <fieldset class="mb-4 pb-3 border-bottom">
+          <legend class="h5">Información general</legend>
+
+          <div class="mb-3">
+            <label for="titulo" class="form-label">Título</label>
+            <input type="text" id="titulo" name="titulo" class="form-control" required aria-describedby="titulo-ayuda">
+            <div id="titulo-ayuda" class="form-text">Un nombre breve y claro para tu iniciativa.</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="tipo" class="form-label">Tipo</label>
+              <select id="tipo" name="tipo" class="form-select" required>
+                <option value="">Selecciona una opción</option>
+                <option value="idea">Idea</option>
+                <option value="necesidad">Necesidad</option>
+                <option value="reto">Reto</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="categoria" class="form-label">Categoría</label>
+              <select id="categoria" name="categoria" class="form-select" required>
+                <option value="">Selecciona una opción</option>
+                <option value="academico">Académico</option>
+                <option value="social">Social</option>
+                <option value="tecnologico">Tecnológico</option>
+                <option value="sostenibilidad">Sostenibilidad</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="resumen" class="form-label">Resumen</label>
+            <textarea id="resumen" name="resumen" rows="2" maxlength="160" class="form-control" required aria-describedby="resumen-ayuda"></textarea>
+            <div id="resumen-ayuda" class="form-text">Máximo 160 caracteres. Es lo que se muestra en el catálogo.</div>
+          </div>
+        </fieldset>
+
+        <fieldset class="mb-4 pb-3 border-bottom">
+          <legend class="h5">Detalle</legend>
+
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción completa</label>
+            <textarea id="descripcion" name="descripcion" rows="5" class="form-control" required></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label for="problema" class="form-label">Problema identificado</label>
+            <textarea id="problema" name="problema" rows="3" class="form-control" required></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label for="beneficiarios" class="form-label">Beneficiarios</label>
+            <input type="text" id="beneficiarios" name="beneficiarios" class="form-control" required aria-describedby="beneficiarios-ayuda">
+            <div id="beneficiarios-ayuda" class="form-text">¿Quién se beneficia si esta iniciativa se desarrolla?</div>
+          </div>
+        </fieldset>
+
+        <fieldset class="mb-4 pb-3 border-bottom">
+          <legend class="h5">Equipo y competencias</legend>
+
+          <div class="mb-3 col-md-6">
+            <label for="participantes" class="form-label">Cantidad estimada de participantes</label>
+            <input type="number" id="participantes" name="participantes" min="1" max="20" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <span class="form-label d-block">Competencias necesarias</span>
+            <div id="lista-competencias">
+              <div class="input-group mb-2">
+                <input type="text" name="competencia[]" class="form-control" placeholder="Ej: Diseño UX" aria-label="Competencia">
+                <button type="button" class="btn btn-outline-danger boton-quitar" aria-label="Quitar esta competencia">×</button>
+              </div>
+            </div>
+            <button type="button" id="agregar-competencia" class="btn btn-outline-primary btn-sm">
+              + Agregar competencia
+            </button>
+          </div>
+        </fieldset>
+
+        <fieldset class="mb-4">
+          <legend class="h5">Visibilidad</legend>
+
+          <div class="mb-3" role="radiogroup" aria-label="Visibilidad">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="visibilidad" id="vis-publica" value="publica" required>
+              <label class="form-check-label" for="vis-publica">Pública — cualquiera puede verla, sin iniciar sesión</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="visibilidad" id="vis-institucional" value="institucional">
+              <label class="form-check-label" for="vis-institucional">Institucional — visible para cualquier usuario autenticado</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="visibilidad" id="vis-restringida" value="restringida">
+              <label class="form-check-label" for="vis-restringida">Restringida — solo se muestra un resumen</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="visibilidad" id="vis-privada" value="privada">
+              <label class="form-check-label" for="vis-privada">Privada — visible solo para ti y tu equipo</label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="etiquetas" class="form-label">Etiquetas</label>
+            <input type="text" id="etiquetas" name="etiquetas" class="form-control" aria-describedby="etiquetas-ayuda">
+            <div id="etiquetas-ayuda" class="form-text">Sepáralas con comas, por ejemplo: educación, movilidad, voluntariado.</div>
+          </div>
+        </fieldset>
+
+        <div class="d-flex gap-3">
+          <button type="submit" class="btn btn-primary">Publicar iniciativa</button>
+          <a href="catalogo.html" class="btn btn-link text-muted">Cancelar</a>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</main>
+
+<footer class="bg-dark text-white text-center py-3 mt-4">
+  <p class="mb-0">Innovation Hub — Universidad CENFOTEC</p>
+</footer>
+
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
