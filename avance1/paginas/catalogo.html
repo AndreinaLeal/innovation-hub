@@ -1,217 +1,270 @@
+<!-- avance1/paginas/catalogo.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Catálogo de iniciativas — Innovation Hub</title>
+<link rel="stylesheet" href="../estilos/styles.css">
 </head>
 <body>
-<header>
-<a href="../index.html">Innovation Hub</a>
-<nav aria-label="Principal">
-<ul>
-<li><a href="catalogo.html" aria-current="page">Catálogo</a></li>
-<li><a href="publicar.html">Publicar iniciativa</a></li>
-<li><a href="proyectos.html">Proyectos</a></li>
-<li><a href="perfil.html">Mi perfil</a></li>
-<li><a href="solicitudes.html">Mis solicitudes</a></li>
-</ul>
-</nav>
+
+<header class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+    <a href="../index.html" class="navbar-brand fw-bold">Innovation Hub</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navPrincipal" aria-controls="navPrincipal" aria-expanded="false" aria-label="Abrir navegación">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <nav class="collapse navbar-collapse" id="navPrincipal" aria-label="Principal">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="catalogo.html">Catálogo</a></li>
+        <li class="nav-item"><a class="nav-link" href="publicar.html">Publicar iniciativa</a></li>
+        <li class="nav-item"><a class="nav-link" href="proyectos.html">Proyectos</a></li>
+        <li class="nav-item"><a class="nav-link" href="perfil.html">Mi perfil</a></li>
+        <li class="nav-item"><a class="nav-link" href="solicitudes.html">Mis solicitudes</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
-<main>
-<h1>Catálogo de iniciativas</h1>
-<!-- ACTIVIDAD 4: aside -->
-<!-- ACTIVIDAD 5: section -->
+
+<main class="container py-4">
+  <h1 class="h2 mb-4">Catálogo de iniciativas</h1>
+
+  <div class="row g-4">
+
+    <aside class="col-lg-3" aria-labelledby="titulo-filtros">
+      <div class="card">
+        <div class="card-body">
+          <h2 id="titulo-filtros" class="h5 card-title">Filtrar iniciativas</h2>
+          <form>
+            <div class="mb-3">
+              <label for="filtro-tipo" class="form-label">Tipo</label>
+              <select id="filtro-tipo" name="tipo" class="form-select">
+                <option value="">Todos</option>
+                <option value="idea">Idea</option>
+                <option value="necesidad">Necesidad</option>
+                <option value="reto">Reto</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="filtro-categoria" class="form-label">Categoría</label>
+              <select id="filtro-categoria" name="categoria" class="form-select">
+                <option value="">Todas</option>
+                <option value="educacion">Educación</option>
+                <option value="ambiente">Ambiente</option>
+                <option value="comunidad">Gestión comunitaria</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="filtro-competencia" class="form-label">Competencia requerida</label>
+              <input type="text" id="filtro-competencia" name="competencia" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Aplicar filtros</button>
+          </form>
+        </div>
+      </div>
+    </aside>
+
+    <section class="col-lg-9" aria-labelledby="titulo-resultados">
+      <h2 id="titulo-resultados" class="h5 mb-3">8 iniciativas encontradas</h2>
+
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+
+        <div class="col">
+          <article class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h5 card-title">Coordinar voluntarios universitarios</h3>
+              <p class="text-muted small mb-2">Idea · Gestión comunitaria</p>
+              <p class="card-text">Plataforma para publicar turnos de voluntariado, asignar participantes y registrar las horas cumplidas.</p>
+              <p class="small">Publicado por <strong>Ana Rojas</strong> el <time datetime="2026-08-24">24 de agosto de 2026</time></p>
+              <h4 class="h6">Competencias requeridas</h4>
+              <ul class="mb-3">
+                <li>React</li>
+                <li>Diseño de interfaces</li>
+              </ul>
+              <p class="mb-3">
+                <span class="badge text-bg-warning">
+                  <span aria-hidden="true">●</span> En progreso
+                </span>
+                <span class="text-muted small ms-1">· 3 de 5 miembros</span>
+              </p>
+              <a href="detalle.html" class="btn btn-outline-primary mt-auto">Ver la iniciativa Coordinar voluntarios</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col">
+          <article class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h5 card-title">App de intercambio de apuntes entre carreras</h3>
+              <p class="text-muted small mb-2">Idea · Educación</p>
+              <p class="card-text">Aplicación para que estudiantes de distintas carreras compartan apuntes, resúmenes y guías de estudio clasificados por curso.</p>
+              <p class="small">Publicado por <strong>Diego Fernández</strong> el <time datetime="2026-08-20">20 de agosto de 2026</time></p>
+              <h4 class="h6">Competencias requeridas</h4>
+              <ul class="mb-3">
+                <li>Node.js</li>
+                <li>Diseño de bases de datos</li>
+              </ul>
+              <p class="mb-3">
+                <span class="badge text-bg-info">
+                  <span aria-hidden="true">●</span> Buscando equipo
+                </span>
+                <span class="text-muted small ms-1">· 1 de 4 miembros</span>
+              </p>
+              <a href="detalle.html" class="btn btn-outline-primary mt-auto">Ver la iniciativa App de intercambio de apuntes</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col">
+          <article class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h5 card-title">Mentores para el laboratorio de robótica</h3>
+              <p class="text-muted small mb-2">Necesidad · Educación</p>
+              <p class="card-text">El laboratorio de robótica necesita estudiantes avanzados que guíen a los grupos de primer ingreso en el uso de microcontroladores.</p>
+              <p class="small">Publicado por <strong>Marcela Jiménez</strong> el <time datetime="2026-08-18">18 de agosto de 2026</time></p>
+              <h4 class="h6">Competencias requeridas</h4>
+              <ul class="mb-3">
+                <li>Arduino</li>
+                <li>Electrónica básica</li>
+              </ul>
+              <p class="mb-3">
+                <span class="badge text-bg-info">
+                  <span aria-hidden="true">●</span> Buscando equipo
+                </span>
+                <span class="text-muted small ms-1">· 0 de 3 miembros</span>
+              </p>
+              <a href="detalle.html" class="btn btn-outline-primary mt-auto">Ver la iniciativa Mentores para el laboratorio de robótica</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col">
+          <article class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h5 card-title">Traducción de material inclusivo a LESCO</h3>
+              <p class="text-muted small mb-2">Necesidad · Gestión comunitaria</p>
+              <p class="card-text">Se requiere traducir los materiales de bienvenida de la universidad a Lengua de Señas Costarricense para estudiantes sordos.</p>
+              <p class="small">Publicado por <strong>Pablo Araya</strong> el <time datetime="2026-07-30">30 de julio de 2026</time></p>
+              <h4 class="h6">Competencias requeridas</h4>
+              <ul class="mb-3">
+                <li>LESCO</li>
+                <li>Producción de video</li>
+              </ul>
+              <p class="mb-3">
+                <span class="badge text-bg-secondary">
+                  <span aria-hidden="true">●</span> Pausada
+                </span>
+                <span class="text-muted small ms-1">· 2 de 5 miembros</span>
+              </p>
+              <a href="detalle.html" class="btn btn-outline-primary mt-auto">Ver la iniciativa Traducción de material inclusivo a LESCO</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col">
+          <article class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h5 card-title">Optimizar el consumo eléctrico del campus</h3>
+              <p class="text-muted small mb-2">Reto · Ambiente</p>
+              <p class="card-text">Diseñar un panel de monitoreo que muestre el consumo eléctrico por edificio en tiempo real para identificar oportunidades de ahorro.</p>
+              <p class="small">Publicado por <strong>Valeria Solano</strong> el <time datetime="2026-08-15">15 de agosto de 2026</time></p>
+              <h4 class="h6">Competencias requeridas</h4>
+              <ul class="mb-3">
+                <li>IoT</li>
+                <li>Visualización de datos</li>
+              </ul>
+              <p class="mb-3">
+                <span class="badge text-bg-warning">
+                  <span aria-hidden="true">●</span> En progreso
+                </span>
+                <span class="text-muted small ms-1">· 4 de 4 miembros</span>
+              </p>
+              <a href="detalle.html" class="btn btn-outline-primary mt-auto">Ver la iniciativa Optimizar el consumo eléctrico del campus</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col">
+          <article class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h5 card-title">Hackathon de movilidad estudiantil</h3>
+              <p class="text-muted small mb-2">Reto · Gestión comunitaria</p>
+              <p class="card-text">Organizar un hackathon de 48 horas para proponer soluciones de transporte compartido entre estudiantes que viven fuera del GAM.</p>
+              <p class="small">Publicado por <strong>Esteban Vargas</strong> el <time datetime="2026-06-10">10 de junio de 2026</time></p>
+              <h4 class="h6">Competencias requeridas</h4>
+              <ul class="mb-3">
+                <li>Gestión de eventos</li>
+                <li>Patrocinios</li>
+              </ul>
+              <p class="mb-3">
+                <span class="badge text-bg-success">
+                  <span aria-hidden="true">●</span> Completada
+                </span>
+                <span class="text-muted small ms-1">· 6 de 6 miembros</span>
+              </p>
+              <a href="detalle.html" class="btn btn-outline-primary mt-auto">Ver la iniciativa Hackathon de movilidad estudiantil</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col">
+          <article class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h5 card-title">Red de apoyo psicológico entre pares</h3>
+              <p class="text-muted small mb-2">Necesidad · Gestión comunitaria</p>
+              <p class="card-text">Formar una red de estudiantes capacitados en primeros auxilios psicológicos para acompañar a compañeros en épocas de exámenes.</p>
+              <p class="small">Publicado por <strong>Camila Rojas</strong> el <time datetime="2026-08-28">28 de agosto de 2026</time></p>
+              <h4 class="h6">Competencias requeridas</h4>
+              <ul class="mb-3">
+                <li>Escucha activa</li>
+                <li>Psicología comunitaria</li>
+              </ul>
+              <p class="mb-3">
+                <span class="badge text-bg-warning">
+                  <span aria-hidden="true">●</span> En progreso
+                </span>
+                <span class="text-muted small ms-1">· 5 de 8 miembros</span>
+              </p>
+              <a href="detalle.html" class="btn btn-outline-primary mt-auto">Ver la iniciativa Red de apoyo psicológico entre pares</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="col">
+          <article class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h3 class="h5 card-title">Sistema de préstamo de herramientas para proyectos</h3>
+              <p class="text-muted small mb-2">Reto · Educación</p>
+              <p class="card-text">Crear un sistema de préstamo y devolución de herramientas y componentes electrónicos para los talleres de ingeniería.</p>
+              <p class="small">Publicado por <strong>Josué Mora</strong> el <time datetime="2026-08-05">5 de agosto de 2026</time></p>
+              <h4 class="h6">Competencias requeridas</h4>
+              <ul class="mb-3">
+                <li>Gestión de inventarios</li>
+                <li>Bases de datos</li>
+              </ul>
+              <p class="mb-3">
+                <span class="badge text-bg-info">
+                  <span aria-hidden="true">●</span> Buscando equipo
+                </span>
+                <span class="text-muted small ms-1">· 0 de 3 miembros</span>
+              </p>
+              <a href="detalle.html" class="btn btn-outline-primary mt-auto">Ver la iniciativa Sistema de préstamo de herramientas</a>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
 </main>
 
-<aside aria-labelledby="titulo-filtros">
-<h2 id="titulo-filtros">Filtrar iniciativas</h2>
-<form>
-<p>
-<label for="filtro-tipo">Tipo</label>
-<select id="filtro-tipo" name="tipo">
-<option value="">Todos</option>
-<option value="idea">Idea</option>
-<option value="necesidad">Necesidad</option>
-<option value="reto">Reto</option>
-</select>
-</p>
-<p>
-<label for="filtro-categoria">Categoría</label>
-<select id="filtro-categoria" name="categoria">
-<option value="">Todas</option>
-<option value="educacion">Educación</option>
-<option value="ambiente">Ambiente</option>
-<option value="comunidad">Gestión comunitaria</option>
-</select>
-</p>
-<p>
-<label for="filtro-competencia">Competencia requerida</label>
-<input type="text" id="filtro-competencia" name="competencia">
-</p>
-<p><button type="submit">Aplicar filtros</button></p>
-</form>
-</aside>
-
-<section aria-labelledby="titulo-resultados">
-<h2 id="titulo-resultados">8 iniciativas encontradas</h2>
-
-<article>
-<h3>Coordinar voluntarios universitarios</h3>
-<p>Idea · Gestión comunitaria</p>
-<p>Plataforma para publicar turnos de voluntariado, asignar participantes y registrar las horas cumplidas.</p>
-<p>Publicado por <strong>Ana Rojas</strong> el <time datetime="2026-08-24">24 de agosto de 2026</time></p>
-<h4>Competencias requeridas</h4>
-<ul>
-<li>React</li>
-<li>Diseño de interfaces</li>
-</ul>
-<p>
-<span class="estado">
-<span aria-hidden="true">●</span> En progreso
-</span>
-· 3 de 5 miembros
-</p>
-<p><a href="detalle.html">Ver la iniciativa Coordinar voluntarios</a></p>
-</article>
-
-<article>
-<h3>App de intercambio de apuntes entre carreras</h3>
-<p>Idea · Educación</p>
-<p>Aplicación para que estudiantes de distintas carreras compartan apuntes, resúmenes y guías de estudio clasificados por curso.</p>
-<p>Publicado por <strong>Diego Fernández</strong> el <time datetime="2026-08-20">20 de agosto de 2026</time></p>
-<h4>Competencias requeridas</h4>
-<ul>
-<li>Node.js</li>
-<li>Diseño de bases de datos</li>
-</ul>
-<p>
-<span class="estado">
-<span aria-hidden="true">●</span> Buscando equipo
-</span>
-· 1 de 4 miembros
-</p>
-<p><a href="detalle.html">Ver la iniciativa App de intercambio de apuntes</a></p>
-</article>
-
-<article>
-<h3>Mentores para el laboratorio de robótica</h3>
-<p>Necesidad · Educación</p>
-<p>El laboratorio de robótica necesita estudiantes avanzados que guíen a los grupos de primer ingreso en el uso de microcontroladores.</p>
-<p>Publicado por <strong>Marcela Jiménez</strong> el <time datetime="2026-08-18">18 de agosto de 2026</time></p>
-<h4>Competencias requeridas</h4>
-<ul>
-<li>Arduino</li>
-<li>Electrónica básica</li>
-</ul>
-<p>
-<span class="estado">
-<span aria-hidden="true">●</span> Buscando equipo
-</span>
-· 0 de 3 miembros
-</p>
-<p><a href="detalle.html">Ver la iniciativa Mentores para el laboratorio de robótica</a></p>
-</article>
-
-<article>
-<h3>Traducción de material inclusivo a LESCO</h3>
-<p>Necesidad · Gestión comunitaria</p>
-<p>Se requiere traducir los materiales de bienvenida de la universidad a Lengua de Señas Costarricense para estudiantes sordos.</p>
-<p>Publicado por <strong>Pablo Araya</strong> el <time datetime="2026-07-30">30 de julio de 2026</time></p>
-<h4>Competencias requeridas</h4>
-<ul>
-<li>LESCO</li>
-<li>Producción de video</li>
-</ul>
-<p>
-<span class="estado">
-<span aria-hidden="true">●</span> Pausada
-</span>
-· 2 de 5 miembros
-</p>
-<p><a href="detalle.html">Ver la iniciativa Traducción de material inclusivo a LESCO</a></p>
-</article>
-
-<article>
-<h3>Optimizar el consumo eléctrico del campus</h3>
-<p>Reto · Ambiente</p>
-<p>Diseñar un panel de monitoreo que muestre el consumo eléctrico por edificio en tiempo real para identificar oportunidades de ahorro.</p>
-<p>Publicado por <strong>Valeria Solano</strong> el <time datetime="2026-08-15">15 de agosto de 2026</time></p>
-<h4>Competencias requeridas</h4>
-<ul>
-<li>IoT</li>
-<li>Visualización de datos</li>
-</ul>
-<p>
-<span class="estado">
-<span aria-hidden="true">●</span> En progreso
-</span>
-· 4 de 4 miembros
-</p>
-<p><a href="detalle.html">Ver la iniciativa Optimizar el consumo eléctrico del campus</a></p>
-</article>
-
-<article>
-<h3>Hackathon de movilidad estudiantil</h3>
-<p>Reto · Gestión comunitaria</p>
-<p>Organizar un hackathon de 48 horas para proponer soluciones de transporte compartido entre estudiantes que viven fuera del GAM.</p>
-<p>Publicado por <strong>Esteban Vargas</strong> el <time datetime="2026-06-10">10 de junio de 2026</time></p>
-<h4>Competencias requeridas</h4>
-<ul>
-<li>Gestión de eventos</li>
-<li>Patrocinios</li>
-</ul>
-<p>
-<span class="estado">
-<span aria-hidden="true">●</span> Completada
-</span>
-· 6 de 6 miembros
-</p>
-<p><a href="detalle.html">Ver la iniciativa Hackathon de movilidad estudiantil</a></p>
-</article>
-
-<article>
-<h3>Red de apoyo psicológico entre pares</h3>
-<p>Necesidad · Gestión comunitaria</p>
-<p>Formar una red de estudiantes capacitados en primeros auxilios psicológicos para acompañar a compañeros en épocas de exámenes.</p>
-<p>Publicado por <strong>Camila Rojas</strong> el <time datetime="2026-08-28">28 de agosto de 2026</time></p>
-<h4>Competencias requeridas</h4>
-<ul>
-<li>Escucha activa</li>
-<li>Psicología comunitaria</li>
-</ul>
-<p>
-<span class="estado">
-<span aria-hidden="true">●</span> En progreso
-</span>
-· 5 de 8 miembros
-</p>
-<p><a href="detalle.html">Ver la iniciativa Red de apoyo psicológico entre pares</a></p>
-</article>
-
-<article>
-<h3>Sistema de préstamo de herramientas para proyectos</h3>
-<p>Reto · Educación</p>
-<p>Crear un sistema de préstamo y devolución de herramientas y componentes electrónicos para los talleres de ingeniería.</p>
-<p>Publicado por <strong>Josué Mora</strong> el <time datetime="2026-08-05">5 de agosto de 2026</time></p>
-<h4>Competencias requeridas</h4>
-<ul>
-<li>Gestión de inventarios</li>
-<li>Bases de datos</li>
-</ul>
-<p>
-<span class="estado">
-<span aria-hidden="true">●</span> Buscando equipo
-</span>
-· 0 de 3 miembros
-</p>
-<p><a href="detalle.html">Ver la iniciativa Sistema de préstamo de herramientas</a></p>
-</article>
-
-</section>
-
-<footer>
-<p>Innovation Hub · Universidad CENFOTEC</p>
-<p><a href="alealve@ucenfotec.ac.cr">hub@ejemplo.ac.cr</a></p>
+<footer class="bg-dark text-white text-center py-3 mt-4">
+  <p class="mb-1">Innovation Hub · Universidad CENFOTEC</p>
+  <p class="mb-0"><a href="mailto:hub@ejemplo.ac.cr" class="text-white">hub@ejemplo.ac.cr</a></p>
 </footer>
+
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</html>
