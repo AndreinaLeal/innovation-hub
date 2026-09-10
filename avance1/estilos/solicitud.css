@@ -1,0 +1,93 @@
+/* avance1/estilos/solicitud.css */
+
+.solicitud {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.solicitud__migas {
+  font-size: 0.875rem;
+  color: var(--color-texto-suave);
+  margin-bottom: 1.5rem;
+}
+
+.solicitud__intro {
+  color: var(--color-texto-suave);
+  margin-bottom: 2rem;
+}
+
+.solicitud .campo {
+  margin-bottom: 1.25rem;
+}
+
+.solicitud .campo label,
+.solicitud fieldset legend {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.solicitud .campo input[type="text"],
+.solicitud .campo select,
+.solicitud .campo textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-linea);
+  border-radius: 4px;
+  font-family: var(--fuente-cuerpo);
+  font-size: 1rem;
+  background: var(--color-superficie);
+  color: var(--color-texto);
+}
+
+.solicitud .campo input:focus-visible,
+.solicitud .campo select:focus-visible,
+.solicitud .campo textarea:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 1px;
+}
+
+.solicitud .campo__ayuda {
+  font-size: 0.8125rem;
+  color: var(--color-texto-suave);
+  margin: 0.35rem 0 0;
+}
+
+.campo--radios {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.opcion-radio {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.opcion-radio input {
+  margin-top: 0.2rem;
+}
+
+.formulario__acciones {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.formulario__acciones .boton--primario {
+  width: auto;
+  padding: 0.75rem 1.5rem;
+}
+
+.boton--enlace {
+  display: flex;
+  align-items: center;
+  color: var(--color-texto-suave);
+}

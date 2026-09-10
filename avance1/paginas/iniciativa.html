@@ -72,8 +72,14 @@
           </div>
         </dl>
 
-        <button type="button" class="boton boton--primario">Solicitar participación</button>
+        <a href="solicitud.html" class="boton boton--primario">Solicitar participación</a>
         <p class="iniciativa__panel-nota">La propietaria revisará tu solicitud antes de aceptarte en el equipo.</p>
+
+        <div class="iniciativa__panel-acciones-propietario">
+          <p class="iniciativa__panel-etiqueta">Acciones del propietario</p>
+          <a href="publicar.html?editar=1" class="boton boton--secundario">Editar iniciativa</a>
+          <button type="button" class="boton boton--peligro" id="btn-eliminar">Eliminar iniciativa</button>
+        </div>
 
       </aside>
 
@@ -84,6 +90,20 @@
   <footer class="sitio-footer">
     <p>Innovation Hub — Universidad CENFOTEC</p>
   </footer>
+
+  <dialog id="dialogo-confirmar-eliminar" class="dialogo-confirmar" aria-labelledby="dialogo-titulo">
+    <form method="dialog">
+      <h2 id="dialogo-titulo">¿Eliminar esta iniciativa?</h2>
+      <p>
+        Esta acción archivará "Reducir el tiempo de asignación de tutorías entre pares".
+        No podrás deshacerlo desde aquí.
+      </p>
+      <div class="dialogo-confirmar__acciones">
+        <button type="submit" value="cancelar" class="boton boton--enlace">Cancelar</button>
+        <button type="submit" value="confirmar" class="boton boton--peligro">Sí, eliminar</button>
+      </div>
+    </form>
+  </dialog>
 
 </body>
 </html>

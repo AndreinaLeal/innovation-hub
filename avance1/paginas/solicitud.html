@@ -1,0 +1,95 @@
+<!-- avance1/paginas/solicitud.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Innovation Hub — Solicitar participación</title>
+  <link rel="stylesheet" href="../estilos/base.css">
+  <link rel="stylesheet" href="../estilos/solicitud.css">
+</head>
+<body>
+
+  <header class="sitio-header">
+    <a href="catalogo.html" class="sitio-header__marca">Innovation Hub</a>
+    <nav class="sitio-header__nav" aria-label="Navegación principal">
+      <a href="catalogo.html">Explorar iniciativas</a>
+      <a href="publicar.html">Publicar iniciativa</a>
+      <a href="perfil.html">Mi perfil</a>
+    </nav>
+  </header>
+
+  <main class="solicitud">
+
+    <nav class="solicitud__migas" aria-label="Ruta de navegación">
+      <a href="catalogo.html">Iniciativas</a> /
+      <a href="iniciativa.html">Tutorías entre pares</a> /
+      <span aria-current="page">Solicitar participación</span>
+    </nav>
+
+    <h1>Solicitar participación</h1>
+    <p class="solicitud__intro">
+      Le estás pidiendo a <strong>María Fernández</strong> unirte al equipo de
+      <strong>"Reducir el tiempo de asignación de tutorías entre pares"</strong>.
+    </p>
+
+    <form class="formulario" novalidate>
+
+      <div class="campo">
+        <label for="mensaje">Mensaje de presentación</label>
+        <textarea id="mensaje" name="mensaje" rows="4" required
+                  aria-describedby="mensaje-ayuda"></textarea>
+        <p id="mensaje-ayuda" class="campo__ayuda">
+          Cuéntale a la propietaria por qué te interesa esta iniciativa.
+        </p>
+      </div>
+
+      <div class="campo">
+        <label for="competencia-principal">Competencia principal que aportas</label>
+        <select id="competencia-principal" name="competencia-principal" required>
+          <option value="">Selecciona una opción</option>
+          <option value="ux">Diseño de experiencia de usuario</option>
+          <option value="backend">Desarrollo backend con bases de datos relacionales</option>
+          <option value="procesos">Análisis de procesos académicos</option>
+          <option value="otra">Otra</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="rol">Rol deseado en el equipo</label>
+        <input type="text" id="rol" name="rol" required
+               aria-describedby="rol-ayuda">
+        <p id="rol-ayuda" class="campo__ayuda">Ej: Diseñadora UX, desarrolladora backend, analista.</p>
+      </div>
+
+      <fieldset class="campo campo--radios">
+        <legend>Disponibilidad</legend>
+        <label class="opcion-radio">
+          <input type="radio" name="disponibilidad" value="alta" required>
+          Alta — más de 6 horas semanales
+        </label>
+        <label class="opcion-radio">
+          <input type="radio" name="disponibilidad" value="media">
+          Media — entre 3 y 6 horas semanales
+        </label>
+        <label class="opcion-radio">
+          <input type="radio" name="disponibilidad" value="baja">
+          Baja — menos de 3 horas semanales
+        </label>
+      </fieldset>
+
+      <div class="formulario__acciones">
+        <button type="submit" class="boton boton--primario">Enviar solicitud</button>
+        <a href="iniciativa.html" class="boton boton--enlace">Cancelar</a>
+      </div>
+
+    </form>
+
+  </main>
+
+  <footer class="sitio-footer">
+    <p>Innovation Hub — Universidad CENFOTEC</p>
+  </footer>
+
+</body>
+</html>
