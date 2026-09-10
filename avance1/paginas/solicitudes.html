@@ -2,94 +2,105 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Innovation Hub — Solicitar participación</title>
-  <link rel="stylesheet" href="../estilos/base.css">
-  <link rel="stylesheet" href="../estilos/solicitud.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Innovation Hub — Solicitar participación</title>
+<link rel="stylesheet" href="../estilos/styles.css">
 </head>
 <body>
 
-  <header class="sitio-header">
-    <a href="catalogo.html" class="sitio-header__marca">Innovation Hub</a>
-    <nav class="sitio-header__nav" aria-label="Navegación principal">
-      <a href="catalogo.html">Explorar iniciativas</a>
-      <a href="publicar.html">Publicar iniciativa</a>
-      <a href="perfil.html">Mi perfil</a>
+<header class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+    <a href="catalogo.html" class="navbar-brand fw-bold">Innovation Hub</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navPrincipal" aria-controls="navPrincipal" aria-expanded="false" aria-label="Abrir navegación">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <nav class="collapse navbar-collapse" id="navPrincipal" aria-label="Principal">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+        <li class="nav-item"><a class="nav-link" href="publicar.html">Publicar iniciativa</a></li>
+        <li class="nav-item"><a class="nav-link" href="proyectos.html">Proyectos</a></li>
+        <li class="nav-item"><a class="nav-link" href="perfil.html">Mi perfil</a></li>
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="solicitudes.html">Mis solicitudes</a></li>
+      </ul>
     </nav>
-  </header>
+  </div>
+</header>
 
-  <main class="solicitud">
+<main class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
 
-    <nav class="solicitud__migas" aria-label="Ruta de navegación">
-      <a href="catalogo.html">Iniciativas</a> /
-      <a href="detalle.html">Tutorías entre pares</a> /
-      <span aria-current="page">Solicitar participación</span>
-    </nav>
+      <nav aria-label="Ruta de navegación">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="catalogo.html">Iniciativas</a></li>
+          <li class="breadcrumb-item"><a href="detalle.html">Tutorías entre pares</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Solicitar participación</li>
+        </ol>
+      </nav>
 
-    <h1>Solicitar participación</h1>
-    <p class="solicitud__intro">
-      Le estás pidiendo a <strong>María Fernández</strong> unirte al equipo de
-      <strong>"Reducir el tiempo de asignación de tutorías entre pares"</strong>.
-    </p>
+      <h1 class="h2">Solicitar participación</h1>
+      <p class="text-muted mb-4">
+        Le estás pidiendo a <strong>María Fernández</strong> unirte al equipo de
+        <strong>"Reducir el tiempo de asignación de tutorías entre pares"</strong>.
+      </p>
 
-    <form class="formulario" novalidate>
+      <form novalidate>
 
-      <div class="campo">
-        <label for="mensaje">Mensaje de presentación</label>
-        <textarea id="mensaje" name="mensaje" rows="4" required
-                  aria-describedby="mensaje-ayuda"></textarea>
-        <p id="mensaje-ayuda" class="campo__ayuda">
-          Cuéntale a la propietaria por qué te interesa esta iniciativa.
-        </p>
-      </div>
+        <div class="mb-3">
+          <label for="mensaje" class="form-label">Mensaje de presentación</label>
+          <textarea id="mensaje" name="mensaje" rows="4" class="form-control" required aria-describedby="mensaje-ayuda"></textarea>
+          <div id="mensaje-ayuda" class="form-text">Cuéntale a la propietaria por qué te interesa esta iniciativa.</div>
+        </div>
 
-      <div class="campo">
-        <label for="competencia-principal">Competencia principal que aportas</label>
-        <select id="competencia-principal" name="competencia-principal" required>
-          <option value="">Selecciona una opción</option>
-          <option value="ux">Diseño de experiencia de usuario</option>
-          <option value="backend">Desarrollo backend con bases de datos relacionales</option>
-          <option value="procesos">Análisis de procesos académicos</option>
-          <option value="otra">Otra</option>
-        </select>
-      </div>
+        <div class="mb-3">
+          <label for="competencia-principal" class="form-label">Competencia principal que aportas</label>
+          <select id="competencia-principal" name="competencia-principal" class="form-select" required>
+            <option value="">Selecciona una opción</option>
+            <option value="ux">Diseño de experiencia de usuario</option>
+            <option value="backend">Desarrollo backend con bases de datos relacionales</option>
+            <option value="procesos">Análisis de procesos académicos</option>
+            <option value="otra">Otra</option>
+          </select>
+        </div>
 
-      <div class="campo">
-        <label for="rol">Rol deseado en el equipo</label>
-        <input type="text" id="rol" name="rol" required
-               aria-describedby="rol-ayuda">
-        <p id="rol-ayuda" class="campo__ayuda">Ej: Diseñadora UX, desarrolladora backend, analista.</p>
-      </div>
+        <div class="mb-3">
+          <label for="rol" class="form-label">Rol deseado en el equipo</label>
+          <input type="text" id="rol" name="rol" class="form-control" required aria-describedby="rol-ayuda">
+          <div id="rol-ayuda" class="form-text">Ej: Diseñadora UX, desarrolladora backend, analista.</div>
+        </div>
 
-      <fieldset class="campo campo--radios">
-        <legend>Disponibilidad</legend>
-        <label class="opcion-radio">
-          <input type="radio" name="disponibilidad" value="alta" required>
-          Alta — más de 6 horas semanales
-        </label>
-        <label class="opcion-radio">
-          <input type="radio" name="disponibilidad" value="media">
-          Media — entre 3 y 6 horas semanales
-        </label>
-        <label class="opcion-radio">
-          <input type="radio" name="disponibilidad" value="baja">
-          Baja — menos de 3 horas semanales
-        </label>
-      </fieldset>
+        <fieldset class="mb-4">
+          <legend class="h6">Disponibilidad</legend>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="disponibilidad" id="disp-alta" value="alta" required>
+            <label class="form-check-label" for="disp-alta">Alta — más de 6 horas semanales</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="disponibilidad" id="disp-media" value="media">
+            <label class="form-check-label" for="disp-media">Media — entre 3 y 6 horas semanales</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="disponibilidad" id="disp-baja" value="baja">
+            <label class="form-check-label" for="disp-baja">Baja — menos de 3 horas semanales</label>
+          </div>
+        </fieldset>
 
-      <div class="formulario__acciones">
-        <button type="submit" class="boton boton--primario">Enviar solicitud</button>
-        <a href="detalle.html" class="boton boton--enlace">Cancelar</a>
-      </div>
+        <div class="d-flex gap-3">
+          <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+          <a href="detalle.html" class="btn btn-link text-muted">Cancelar</a>
+        </div>
 
-    </form>
+      </form>
 
-  </main>
+    </div>
+  </div>
+</main>
 
-  <footer class="sitio-footer">
-    <p>Innovation Hub — Universidad CENFOTEC</p>
-  </footer>
+<footer class="bg-dark text-white text-center py-3 mt-4">
+  <p class="mb-0">Innovation Hub — Universidad CENFOTEC</p>
+</footer>
 
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

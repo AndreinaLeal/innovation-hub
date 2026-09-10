@@ -1,0 +1,107 @@
+
+[
+  {
+    "id": 1,
+    "titulo": "Coordinar voluntarios universitarios",
+    "tipo": "idea",
+    "categoria": "comunidad",
+    "resumen": "Plataforma para publicar turnos de voluntariado, asignar participantes y registrar las horas cumplidas.",
+    "autor": "Ana Rojas",
+    "fecha": "2026-08-24",
+    "competencias": ["React", "Diseño de interfaces"],
+    "estado": "en-progreso",
+    "miembrosActuales": 3,
+    "miembrosMeta": 5
+  },
+  {
+    "id": 2,
+    "titulo": "App de intercambio de apuntes entre carreras",
+    "tipo": "idea",
+    "categoria": "educacion",
+    "resumen": "Aplicación para que estudiantes de distintas carreras compartan apuntes, resúmenes y guías de estudio clasificados por curso.",
+    "autor": "Diego Fernández",
+    "fecha": "2026-08-20",
+    "competencias": ["Node.js", "Diseño de bases de datos"],
+    "estado": "buscando-equipo",
+    "miembrosActuales": 1,
+    "miembrosMeta": 4
+  },
+  {
+    "id": 3,
+    "titulo": "Mentores para el laboratorio de robótica",
+    "tipo": "necesidad",
+    "categoria": "educacion",
+    "resumen": "El laboratorio de robótica necesita estudiantes avanzados que guíen a los grupos de primer ingreso en el uso de microcontroladores.",
+    "autor": "Marcela Jiménez",
+    "fecha": "2026-08-18",
+    "competencias": ["Arduino", "Electrónica básica"],
+    "estado": "buscando-equipo",
+    "miembrosActuales": 0,
+    "miembrosMeta": 3
+  },
+  {
+    "id": 4,
+    "titulo": "Traducción de material inclusivo a LESCO",
+    "tipo": "necesidad",
+    "categoria": "comunidad",
+    "resumen": "Se requiere traducir los materiales de bienvenida de la universidad a Lengua de Señas Costarricense para estudiantes sordos.",
+    "autor": "Pablo Araya",
+    "fecha": "2026-07-30",
+    "competencias": ["LESCO", "Producción de video"],
+    "estado": "pausada",
+    "miembrosActuales": 2,
+    "miembrosMeta": 5
+  },
+  {
+    "id": 5,
+    "titulo": "Optimizar el consumo eléctrico del campus",
+    "tipo": "reto",
+    "categoria": "ambiente",
+    "resumen": "Diseñar un panel de monitoreo que muestre el consumo eléctrico por edificio en tiempo real para identificar oportunidades de ahorro.",
+    "autor": "Valeria Solano",
+    "fecha": "2026-08-15",
+    "competencias": ["IoT", "Visualización de datos"],
+    "estado": "en-progreso",
+    "miembrosActuales": 4,
+    "miembrosMeta": 4
+  },
+  {
+    "id": 6,
+    "titulo": "Hackathon de movilidad estudiantil",
+    "tipo": "reto",
+    "categoria": "comunidad",
+    "resumen": "Organizar un hackathon de 48 horas para proponer soluciones de transporte compartido entre estudiantes que viven fuera del GAM.",
+    "autor": "Esteban Vargas",
+    "fecha": "2026-06-10",
+    "competencias": ["Gestión de eventos", "Patrocinios"],
+    "estado": "completada",
+    "miembrosActuales": 6,
+    "miembrosMeta": 6
+  },
+  {
+    "id": 7,
+    "titulo": "Red de apoyo psicológico entre pares",
+    "tipo": "necesidad",
+    "categoria": "comunidad",
+    "resumen": "Formar una red de estudiantes capacitados en primeros auxilios psicológicos para acompañar a compañeros en épocas de exámenes.",
+    "autor": "Camila Rojas",
+    "fecha": "2026-08-28",
+    "competencias": ["Escucha activa", "Psicología comunitaria"],
+    "estado": "en-progreso",
+    "miembrosActuales": 5,
+    "miembrosMeta": 8
+  },
+  {
+    "id": 8,
+    "titulo": "Sistema de préstamo de herramientas para proyectos",
+    "tipo": "reto",
+    "categoria": "educacion",
+    "resumen": "Crear un sistema de préstamo y devolución de herramientas y componentes electrónicos para los talleres de ingeniería.",
+    "autor": "Josué Mora",
+    "fecha": "2026-08-05",
+    "competencias": ["Gestión de inventarios", "Bases de datos"],
+    "estado": "buscando-equipo",
+    "miembrosActuales": 0,
+    "miembrosMeta": 3
+  }
+]
