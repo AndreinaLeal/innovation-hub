@@ -102,3 +102,59 @@
   margin-top: 0.75rem;
   margin-bottom: 0;
 }
+
+.iniciativa__panel-acciones-propietario {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-linea);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.iniciativa__panel-etiqueta {
+  font-size: 0.75rem;
+  text-transform: none;
+  color: var(--color-texto-suave);
+  margin: 0 0 0.25rem;
+}
+
+.boton--peligro {
+  background: var(--color-superficie);
+  border: 1px solid #C0392B;
+  color: #C0392B;
+}
+.boton--peligro:hover { background: #FBEAE8; }
+
+.dialogo-confirmar {
+  border: none;
+  border-radius: 6px;
+  padding: 1.5rem;
+  max-width: 400px;
+  box-shadow: 0 4px 24px rgba(18, 35, 63, 0.15);
+}
+
+.dialogo-confirmar::backdrop {
+  background: rgba(18, 35, 63, 0.4);
+}
+
+.dialogo-confirmar h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.dialogo-confirmar p {
+  color: var(--color-texto-suave);
+  margin-bottom: 1.5rem;
+}
+
+.dialogo-confirmar__acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.dialogo-confirmar__acciones .boton {
+  width: auto;
+  padding: 0.6rem 1.25rem;
+}

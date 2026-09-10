@@ -1,0 +1,26 @@
+{
+  "name": "innovation-hub",
+  "version": "1.0.0",
+  "description": "Proyecto del curso SOFT-12 — Desarrollo Web Full Stack.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass:watch": "sass avance1/scss/styles.scss avance1/estilos/styles.css --watch",
+    "sass:build": "sass avance1/scss/styles.scss avance1/estilos/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreinaLeal/innovation-hub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndreinaLeal/innovation-hub/issues"
+  },
+  "homepage": "https://github.com/AndreinaLeal/innovation-hub#readme",
+  "devDependencies": {
+    "bootstrap": "^5.3.8",
+    "sass": "^1.104.0"
+  }
+}

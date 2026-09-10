@@ -1,0 +1,7 @@
+@import "variables";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+.etiqueta--tipo,
+.lista-competencias li::marker {
+  color: $secondary;
+}
