@@ -3,6 +3,7 @@
 Proyecto del curso SOFT-12 — Desarrollo Web Full Stack.
 
 **Estudiante:** Andreina Leal
+                Tatiana Solis
 
 **Sección:** SOFT-12-C1 **Periodo:** III cuatrimestre 2026
 
