@@ -48,7 +48,7 @@ function crearTarjeta(iniciativa) {
           <span class="badge ${estado.clase}"><span aria-hidden="true">●</span> ${estado.texto}</span>
           <span class="text-muted small ms-1">· ${iniciativa.miembrosActuales} de ${iniciativa.miembrosMeta} miembros</span>
         </p>
-        <a href="detalle.html" class="btn btn-outline-primary mt-auto">Ver la iniciativa ${iniciativa.titulo}</a>
+        <a href="detalle.html?id=${iniciativa.id}" class="btn btn-outline-primary mt-auto">Ver la iniciativa ${iniciativa.titulo}</a>
       </div>
     </article>
   `;
@@ -112,7 +112,9 @@ async function iniciar() {
     return;
   }
 
-  todasLasIniciativas = resultado.datos;
+  const eliminadas = JSON.parse(localStorage.getItem("iniciativasEliminadas") || "[]");
+  todasLasIniciativas = resultado.datos.filter((iniciativa) => !eliminadas.includes(iniciativa.id));
+
   renderizarResultados(todasLasIniciativas);
 
   const formularioFiltros = document.querySelector("aside form");

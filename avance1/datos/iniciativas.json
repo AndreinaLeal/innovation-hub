@@ -1,4 +1,3 @@
-
 [
   {
     "id": 1,
@@ -6,12 +5,15 @@
     "tipo": "idea",
     "categoria": "comunidad",
     "resumen": "Plataforma para publicar turnos de voluntariado, asignar participantes y registrar las horas cumplidas.",
+    "descripcion": "Actualmente la coordinación de voluntarios se hace por grupos de WhatsApp y hojas de cálculo, lo que genera turnos duplicados y horas mal registradas. Esta plataforma centralizaría la publicación de turnos, la inscripción de voluntarios y el registro automático de horas cumplidas para certificados.",
     "autor": "Ana Rojas",
     "fecha": "2026-08-24",
     "competencias": ["React", "Diseño de interfaces"],
     "estado": "en-progreso",
+    "visibilidad": "publica",
     "miembrosActuales": 3,
-    "miembrosMeta": 5
+    "miembrosMeta": 5,
+    "miembros": ["Ana Rojas", "Luis Mena", "Karla Solís"]
   },
   {
     "id": 2,
@@ -19,12 +21,15 @@
     "tipo": "idea",
     "categoria": "educacion",
     "resumen": "Aplicación para que estudiantes de distintas carreras compartan apuntes, resúmenes y guías de estudio clasificados por curso.",
+    "descripcion": "Muchos estudiantes producen buenos apuntes que solo comparten con su grupo cercano. La aplicación permitiría subir, clasificar por curso y carrera, y calificar la utilidad de cada apunte, para que el material de calidad llegue a más gente.",
     "autor": "Diego Fernández",
     "fecha": "2026-08-20",
     "competencias": ["Node.js", "Diseño de bases de datos"],
     "estado": "buscando-equipo",
+    "visibilidad": "institucional",
     "miembrosActuales": 1,
-    "miembrosMeta": 4
+    "miembrosMeta": 4,
+    "miembros": ["Diego Fernández"]
   },
   {
     "id": 3,
@@ -32,12 +37,15 @@
     "tipo": "necesidad",
     "categoria": "educacion",
     "resumen": "El laboratorio de robótica necesita estudiantes avanzados que guíen a los grupos de primer ingreso en el uso de microcontroladores.",
+    "descripcion": "Los grupos de primer ingreso llegan sin experiencia previa en electrónica, y los profesores no dan abasto para atender a todos durante las prácticas. Se necesitan mentores estudiantiles que acompañen sesiones semanales de laboratorio.",
     "autor": "Marcela Jiménez",
     "fecha": "2026-08-18",
     "competencias": ["Arduino", "Electrónica básica"],
     "estado": "buscando-equipo",
+    "visibilidad": "restringida",
     "miembrosActuales": 0,
-    "miembrosMeta": 3
+    "miembrosMeta": 3,
+    "miembros": []
   },
   {
     "id": 4,
@@ -45,12 +53,15 @@
     "tipo": "necesidad",
     "categoria": "comunidad",
     "resumen": "Se requiere traducir los materiales de bienvenida de la universidad a Lengua de Señas Costarricense para estudiantes sordos.",
+    "descripcion": "La universidad no cuenta con material de bienvenida ni de trámites básicos en LESCO, lo que dificulta el proceso de integración de estudiantes sordos. Se necesita producir videos traducidos de los documentos más consultados.",
     "autor": "Pablo Araya",
     "fecha": "2026-07-30",
     "competencias": ["LESCO", "Producción de video"],
     "estado": "pausada",
+    "visibilidad": "privada",
     "miembrosActuales": 2,
-    "miembrosMeta": 5
+    "miembrosMeta": 5,
+    "miembros": ["Pablo Araya", "Sofía Chinchilla"]
   },
   {
     "id": 5,
@@ -58,12 +69,15 @@
     "tipo": "reto",
     "categoria": "ambiente",
     "resumen": "Diseñar un panel de monitoreo que muestre el consumo eléctrico por edificio en tiempo real para identificar oportunidades de ahorro.",
+    "descripcion": "El campus no tiene visibilidad de cuánta electricidad consume cada edificio, así que es difícil priorizar dónde intervenir. Un panel en tiempo real, con datos históricos, ayudaría a detectar picos de consumo y proponer mejoras concretas.",
     "autor": "Valeria Solano",
     "fecha": "2026-08-15",
     "competencias": ["IoT", "Visualización de datos"],
     "estado": "en-progreso",
+    "visibilidad": "publica",
     "miembrosActuales": 4,
-    "miembrosMeta": 4
+    "miembrosMeta": 4,
+    "miembros": ["Valeria Solano", "Andrés Ulate", "Fabián Rojas", "Melissa Vargas"]
   },
   {
     "id": 6,
@@ -71,12 +85,15 @@
     "tipo": "reto",
     "categoria": "comunidad",
     "resumen": "Organizar un hackathon de 48 horas para proponer soluciones de transporte compartido entre estudiantes que viven fuera del GAM.",
+    "descripcion": "Muchos estudiantes fuera del GAM gastan horas en transporte público con rutas poco eficientes. El hackathon reuniría equipos multidisciplinarios para prototipar soluciones de transporte compartido en 48 horas.",
     "autor": "Esteban Vargas",
     "fecha": "2026-06-10",
     "competencias": ["Gestión de eventos", "Patrocinios"],
     "estado": "completada",
+    "visibilidad": "institucional",
     "miembrosActuales": 6,
-    "miembrosMeta": 6
+    "miembrosMeta": 6,
+    "miembros": ["Esteban Vargas", "Natalia Brenes", "Kevin Salas", "Priscilla Alfaro", "Josué Mora", "Diana Castro"]
   },
   {
     "id": 7,
@@ -84,12 +101,15 @@
     "tipo": "necesidad",
     "categoria": "comunidad",
     "resumen": "Formar una red de estudiantes capacitados en primeros auxilios psicológicos para acompañar a compañeros en épocas de exámenes.",
+    "descripcion": "En épocas de exámenes aumentan las consultas de estudiantes con ansiedad, pero el departamento de bienestar estudiantil no da abasto. Una red de pares capacitados en primeros auxilios psicológicos podría dar un primer acompañamiento y canalizar casos que necesiten atención profesional.",
     "autor": "Camila Rojas",
     "fecha": "2026-08-28",
     "competencias": ["Escucha activa", "Psicología comunitaria"],
     "estado": "en-progreso",
+    "visibilidad": "restringida",
     "miembrosActuales": 5,
-    "miembrosMeta": 8
+    "miembrosMeta": 8,
+    "miembros": ["Camila Rojas", "Adrián Salazar", "Fiorella Núñez", "Gabriel Chaves", "Melany Rodríguez"]
   },
   {
     "id": 8,
@@ -97,11 +117,14 @@
     "tipo": "reto",
     "categoria": "educacion",
     "resumen": "Crear un sistema de préstamo y devolución de herramientas y componentes electrónicos para los talleres de ingeniería.",
+    "descripcion": "Los talleres de ingeniería prestan herramientas y componentes de forma manual, en una libreta física, lo que provoca pérdidas y confusión sobre quién tiene qué. Un sistema digital de préstamo y devolución resolvería ese seguimiento.",
     "autor": "Josué Mora",
     "fecha": "2026-08-05",
     "competencias": ["Gestión de inventarios", "Bases de datos"],
     "estado": "buscando-equipo",
+    "visibilidad": "publica",
     "miembrosActuales": 0,
-    "miembrosMeta": 3
+    "miembrosMeta": 3,
+    "miembros": []
   }
 ]
