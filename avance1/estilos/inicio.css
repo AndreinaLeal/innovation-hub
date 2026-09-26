@@ -1,0 +1,758 @@
+/* =========================================================
+   INNOVATION HUB
+   estilos exclusivos de la página de inicio
+   ========================================================= */
+
+/* ---------- variables ---------- */
+
+:root {
+  --inicio-azul: #2563eb;
+  --inicio-azul-oscuro: #1d4ed8;
+  --inicio-azul-suave: #eff6ff;
+
+  --inicio-verde: #059669;
+  --inicio-verde-suave: #ecfdf5;
+
+  --inicio-morado: #7c3aed;
+  --inicio-morado-suave: #f5f3ff;
+
+  --inicio-texto: #172033;
+  --inicio-texto-secundario: #64748b;
+
+  --inicio-fondo: #f8fafc;
+  --inicio-blanco: #ffffff;
+  --inicio-borde: #e2e8f0;
+
+  --inicio-radio: 1rem;
+  --inicio-radio-grande: 1.5rem;
+
+  --inicio-sombra:
+    0 12px 35px rgba(15, 23, 42, 0.08);
+}
+
+
+/* =========================================================
+   NAVEGACIÓN
+   ========================================================= */
+
+.navbar {
+  min-height: 76px;
+  background: rgba(255, 255, 255, 0.96) !important;
+}
+
+.navbar-brand {
+  color: var(--inicio-texto);
+}
+
+.marca-subtitulo {
+  margin-top: 0.1rem;
+  color: var(--inicio-texto-secundario);
+  font-size: 0.68rem;
+  font-weight: 500;
+}
+
+.marca-simbolo {
+  display: grid;
+  grid-template-columns: repeat(2, 8px);
+  gap: 3px;
+  padding: 0.55rem;
+  border-radius: 0.7rem;
+  background: var(--inicio-azul);
+}
+
+.marca-simbolo span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+.navbar .nav-link {
+  position: relative;
+  padding: 0.65rem 0.8rem !important;
+  color: var(--inicio-texto-secundario);
+  font-weight: 500;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+  color: var(--inicio-azul);
+}
+
+.navbar .nav-link.active {
+  color: var(--inicio-azul);
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero-inicio {
+  position: relative;
+  overflow: hidden;
+  padding: 5.5rem 0;
+  background:
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(37, 99, 235, 0.09),
+      transparent 28%
+    ),
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #f8fbff 100%
+    );
+}
+
+.hero-etiqueta,
+.etiqueta-seccion {
+  margin-bottom: 0.8rem;
+  color: var(--inicio-azul);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-titulo {
+  max-width: 680px;
+  margin-bottom: 1.5rem;
+  color: var(--inicio-texto);
+  font-size: clamp(2.5rem, 5vw, 4.6rem);
+  font-weight: 750;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.hero-titulo span {
+  color: var(--inicio-azul);
+}
+
+.hero-descripcion {
+  max-width: 650px;
+  color: var(--inicio-texto-secundario);
+  font-size: 1.12rem;
+  line-height: 1.75;
+}
+
+
+/* ---------- botones ---------- */
+
+.hero-inicio .btn,
+.seccion-cta .btn {
+  border-radius: 0.75rem;
+  font-weight: 600;
+}
+
+.hero-inicio .btn-primary,
+.seccion-cta .btn-primary {
+  border-color: var(--inicio-azul);
+  background: var(--inicio-azul);
+}
+
+.hero-inicio .btn-primary:hover,
+.seccion-cta .btn-primary:hover {
+  border-color: var(--inicio-azul-oscuro);
+  background: var(--inicio-azul-oscuro);
+}
+
+.hero-inicio .btn-outline-primary {
+  border-color: var(--inicio-borde);
+  background: var(--inicio-blanco);
+  color: var(--inicio-azul);
+}
+
+.hero-inicio .btn-outline-primary:hover {
+  border-color: var(--inicio-azul);
+  background: var(--inicio-azul-suave);
+  color: var(--inicio-azul-oscuro);
+}
+
+
+/* =========================================================
+   BENEFICIOS DEL HERO
+   ========================================================= */
+
+.hero-beneficios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-beneficios li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.beneficio-icono {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--inicio-azul-suave);
+  color: var(--inicio-azul);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.hero-beneficios strong,
+.hero-beneficios small {
+  display: block;
+}
+
+.hero-beneficios strong {
+  color: var(--inicio-texto);
+  font-size: 0.9rem;
+}
+
+.hero-beneficios small {
+  color: var(--inicio-texto-secundario);
+  font-size: 0.76rem;
+}
+
+
+/* =========================================================
+   PANEL VISUAL
+   ========================================================= */
+
+.hero-visual {
+  position: relative;
+  min-height: 470px;
+}
+
+.panel-colaboracion {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+
+  width: min(100%, 410px);
+  padding: 2.25rem;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: var(--inicio-radio-grande);
+
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--inicio-sombra);
+}
+
+.panel-etiqueta {
+  margin-bottom: 0.6rem;
+  color: var(--inicio-azul);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.panel-colaboracion h2 {
+  margin-bottom: 0.8rem;
+  color: var(--inicio-texto);
+  font-size: 1.75rem;
+}
+
+.panel-colaboracion p {
+  color: var(--inicio-texto-secundario);
+  line-height: 1.65;
+}
+
+.panel-personas {
+  display: flex;
+  margin: 1.5rem 0;
+}
+
+.panel-personas span {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  margin-right: -8px;
+  place-items: center;
+
+  border: 3px solid white;
+  border-radius: 50%;
+
+  background: var(--inicio-azul-suave);
+  color: var(--inicio-azul);
+
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+
+/* ---------- círculos decorativos ---------- */
+
+.hero-circulo {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.hero-circulo-uno {
+  top: 25px;
+  right: 20px;
+  width: 250px;
+  height: 250px;
+  background: var(--inicio-azul-suave);
+}
+
+.hero-circulo-dos {
+  bottom: 15px;
+  left: 40px;
+  width: 180px;
+  height: 180px;
+  background: var(--inicio-morado-suave);
+}
+
+
+/* =========================================================
+   TARJETAS FLOTANTES
+   ========================================================= */
+
+.tarjeta-flotante {
+  position: absolute;
+  z-index: 3;
+
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  width: 215px;
+  padding: 0.9rem 1rem;
+
+  border: 1px solid var(--inicio-borde);
+  border-radius: 0.9rem;
+
+  background: white;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+}
+
+.tarjeta-flotante h3 {
+  margin: 0;
+  color: var(--inicio-texto);
+  font-size: 0.9rem;
+}
+
+.tarjeta-flotante p {
+  margin: 0.15rem 0 0;
+  color: var(--inicio-texto-secundario);
+  font-size: 0.72rem;
+}
+
+.tarjeta-icono {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  place-items: center;
+
+  border-radius: 0.7rem;
+
+  background: var(--inicio-azul-suave);
+  color: var(--inicio-azul);
+
+  font-weight: 700;
+}
+
+.tarjeta-idea {
+  top: 25px;
+  left: 0;
+}
+
+.tarjeta-necesidad {
+  top: 185px;
+  right: -10px;
+}
+
+.tarjeta-reto {
+  bottom: 15px;
+  left: 30px;
+}
+
+
+/* =========================================================
+   ENCABEZADOS DE SECCIÓN
+   ========================================================= */
+
+.encabezado-seccion {
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.encabezado-seccion h2,
+.seccion-tipos h2,
+.seccion-cta h2 {
+  color: var(--inicio-texto);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.encabezado-seccion p:last-child,
+.seccion-tipos p,
+.seccion-cta p {
+  color: var(--inicio-texto-secundario);
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   CÓMO FUNCIONA
+   ========================================================= */
+
+.seccion-funcionamiento {
+  padding: 5.5rem 0;
+  background: white;
+}
+
+.paso-card {
+  padding: 2rem;
+
+  border: 1px solid var(--inicio-borde);
+  border-radius: var(--inicio-radio);
+
+  background: white;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.paso-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--inicio-sombra);
+}
+
+.paso-superior {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.paso-icono {
+  display: grid;
+  width: 45px;
+  height: 45px;
+  place-items: center;
+
+  border-radius: 0.8rem;
+
+  background: var(--inicio-azul-suave);
+  color: var(--inicio-azul);
+
+  font-weight: 700;
+}
+
+.paso-icono-verde {
+  background: var(--inicio-verde-suave);
+  color: var(--inicio-verde);
+}
+
+.paso-icono-morado {
+  background: var(--inicio-morado-suave);
+  color: var(--inicio-morado);
+}
+
+.paso-numero {
+  color: var(--inicio-texto-secundario);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.paso-card h3 {
+  margin-bottom: 0.75rem;
+  color: var(--inicio-texto);
+  font-size: 1.15rem;
+}
+
+.paso-card p {
+  margin: 0;
+  color: var(--inicio-texto-secundario);
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   TIPOS DE INICIATIVA
+   ========================================================= */
+
+.seccion-tipos {
+  padding: 5.5rem 0;
+  border-top: 1px solid var(--inicio-borde);
+  border-bottom: 1px solid var(--inicio-borde);
+  background: var(--inicio-fondo);
+}
+
+.enlace-flecha {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  margin-top: 0.8rem;
+
+  color: var(--inicio-azul);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.enlace-flecha:hover {
+  text-decoration: underline;
+}
+
+.tipo-card {
+  padding: 1.75rem;
+
+  border: 1px solid var(--inicio-borde);
+  border-radius: var(--inicio-radio);
+
+  background: white;
+}
+
+.tipo-icono {
+  display: grid;
+  width: 45px;
+  height: 45px;
+  margin-bottom: 1.25rem;
+  place-items: center;
+
+  border-radius: 0.8rem;
+
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.tipo-idea .tipo-icono {
+  background: var(--inicio-azul-suave);
+  color: var(--inicio-azul);
+}
+
+.tipo-necesidad .tipo-icono {
+  background: var(--inicio-verde-suave);
+  color: var(--inicio-verde);
+}
+
+.tipo-reto .tipo-icono {
+  background: var(--inicio-morado-suave);
+  color: var(--inicio-morado);
+}
+
+.tipo-card h3 {
+  color: var(--inicio-texto);
+  font-size: 1.1rem;
+}
+
+.tipo-card p {
+  margin: 0;
+  color: var(--inicio-texto-secundario);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   CTA FINAL
+   ========================================================= */
+
+.seccion-cta {
+  padding: 5rem 0;
+  background: white;
+}
+
+.cta-contenido {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+
+  padding: 2.75rem;
+
+  border: 1px solid var(--inicio-borde);
+  border-radius: var(--inicio-radio-grande);
+
+  background: var(--inicio-azul-suave);
+}
+
+.cta-contenido p {
+  max-width: 650px;
+  margin-bottom: 0;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer-principal {
+  padding: 2.5rem 0;
+  background: #111827;
+  color: white;
+}
+
+.footer-contenido {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.footer-principal strong {
+  font-size: 1.05rem;
+}
+
+.footer-principal p {
+  margin: 0.2rem 0 0;
+  color: #cbd5e1;
+  font-size: 0.85rem;
+}
+
+
+/* =========================================================
+   ACCESIBILIDAD
+   ========================================================= */
+
+.hero-inicio a:focus-visible,
+.seccion-funcionamiento a:focus-visible,
+.seccion-tipos a:focus-visible,
+.seccion-cta a:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.35);
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 991.98px) {
+
+  .hero-inicio {
+    padding: 4rem 0;
+  }
+
+  .hero-visual {
+    min-height: 500px;
+    margin-top: 1rem;
+  }
+
+  .tarjeta-idea {
+    left: 5%;
+  }
+
+  .tarjeta-necesidad {
+    right: 5%;
+  }
+
+  .tarjeta-reto {
+    left: 10%;
+  }
+
+  .cta-contenido {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-contenido {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+
+@media (max-width: 767.98px) {
+
+  .hero-inicio {
+    padding: 3.5rem 0;
+  }
+
+  .hero-titulo {
+    font-size: clamp(2.2rem, 10vw, 3.3rem);
+  }
+
+  .hero-descripcion {
+    font-size: 1rem;
+  }
+
+  .hero-beneficios {
+    flex-direction: column;
+  }
+
+  .hero-visual {
+    min-height: auto;
+    margin-top: 2rem;
+  }
+
+  .panel-colaboracion {
+    position: relative;
+    top: auto;
+    left: auto;
+
+    width: 100%;
+
+    transform: none;
+  }
+
+  .hero-circulo,
+  .tarjeta-flotante {
+    display: none;
+  }
+
+  .seccion-funcionamiento,
+  .seccion-tipos,
+  .seccion-cta {
+    padding: 4rem 0;
+  }
+
+  .cta-contenido {
+    padding: 2rem;
+  }
+
+  .cta-contenido .btn {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 575.98px) {
+
+  .hero-inicio .btn {
+    width: 100%;
+  }
+
+  .panel-colaboracion {
+    padding: 1.5rem;
+  }
+
+  .paso-card,
+  .tipo-card {
+    padding: 1.5rem;
+  }
+
+  .encabezado-seccion {
+    margin-bottom: 2rem;
+  }
+}
+
+
+/* =========================================================
+   REDUCIR MOVIMIENTO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .paso-card {
+    transition: none;
+  }
+
+  .paso-card:hover {
+    transform: none;
+  }
+}

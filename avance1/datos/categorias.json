@@ -1,0 +1,34 @@
+[
+  {
+    "id": "tecnologia",
+    "nombre": "Tecnología"
+  },
+  {
+    "id": "educacion",
+    "nombre": "Educación"
+  },
+  {
+    "id": "sostenibilidad",
+    "nombre": "Sostenibilidad"
+  },
+  {
+    "id": "impacto-social",
+    "nombre": "Impacto social"
+  },
+  {
+    "id": "negocios-emprendimiento",
+    "nombre": "Negocios y emprendimiento"
+  },
+  {
+    "id": "salud-bienestar",
+    "nombre": "Salud y bienestar"
+  },
+  {
+    "id": "cultura-creatividad",
+    "nombre": "Cultura y creatividad"
+  },
+  {
+    "id": "otro",
+    "nombre": "Otro"
+  }
+]

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Mi perfil — Innovation Hub</title>
+
+  <link rel="stylesheet" href="../estilos/styles.css">
+</head>
+
+<body>
+
+<header class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+
+    <a href="../index.html" class="navbar-brand fw-bold">
+      Innovation Hub
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navPrincipal"
+      aria-controls="navPrincipal"
+      aria-expanded="false"
+      aria-label="Abrir navegación"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <nav
+      class="collapse navbar-collapse"
+      id="navPrincipal"
+      aria-label="Navegación principal"
+    >
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" href="catalogo.html">
+            Catálogo
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="publicar.html">
+            Publicar iniciativa
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="proyectos.html">
+            Proyectos
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            href="perfil.html"
+          >
+            Mi perfil
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="solicitudes.html">
+            Mis solicitudes
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+
+  </div>
+</header>
+
+
+<main class="container py-5">
+
+  <div class="row g-4">
+
+    <!-- información personal -->
+
+    <aside class="col-lg-4">
+
+      <div class="card shadow-sm">
+        <div class="card-body text-center p-4">
+
+          <div
+            class="rounded-circle bg-primary text-white d-flex
+                   align-items-center justify-content-center mx-auto mb-3"
+            style="width: 90px; height: 90px; font-size: 1.5rem;"
+            aria-hidden="true"
+          >
+            TS
+          </div>
+
+          <h1 class="h3 mb-1">
+            Tatiana Solis
+          </h1>
+
+          <p class="text-muted">
+            Estudiante
+          </p>
+
+          <p>
+            Miembro de la comunidad universitaria interesado en
+            colaborar en iniciativas y proyectos interdisciplinarios.
+          </p>
+
+          <button
+            type="button"
+            class="btn btn-outline-primary w-100"
+          >
+            Editar perfil
+          </button>
+
+        </div>
+      </div>
+
+    </aside>
+
+
+    <!-- competencias -->
+
+    <div class="col-lg-8">
+
+      <section
+        class="card shadow-sm mb-4"
+        aria-labelledby="titulo-competencias"
+      >
+        <div class="card-body p-4">
+
+          <h2
+            id="titulo-competencias"
+            class="h4"
+          >
+            Mis competencias
+          </h2>
+
+          <p class="text-muted">
+            Áreas en las que puedo aportar a diferentes iniciativas.
+          </p>
+
+          <div class="d-flex flex-wrap gap-2">
+
+            <span class="badge text-bg-primary">
+              Diseño
+            </span>
+
+            <span class="badge text-bg-primary">
+              Comunicación
+            </span>
+
+            <span class="badge text-bg-primary">
+              Investigación
+            </span>
+
+            <span class="badge text-bg-primary">
+              Gestión de proyectos
+            </span>
+
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- intereses -->
+
+      <section
+        class="card shadow-sm mb-4"
+        aria-labelledby="titulo-intereses"
+      >
+        <div class="card-body p-4">
+
+          <h2
+            id="titulo-intereses"
+            class="h4"
+          >
+            Áreas de interés
+          </h2>
+
+          <ul class="mb-0">
+            <li>Innovación</li>
+            <li>Tecnología</li>
+            <li>Sostenibilidad</li>
+            <li>Proyectos universitarios</li>
+          </ul>
+
+        </div>
+      </section>
+
+
+      <!-- participación -->
+
+      <section
+        class="card shadow-sm"
+        aria-labelledby="titulo-participacion"
+      >
+        <div class="card-body p-4">
+
+          <h2
+            id="titulo-participacion"
+            class="h4"
+          >
+            Mi participación
+          </h2>
+
+          <div class="row text-center mt-4">
+
+            <div class="col-4">
+              <strong class="d-block fs-3">2</strong>
+              <span class="text-muted">
+                Iniciativas
+              </span>
+            </div>
+
+            <div class="col-4">
+              <strong class="d-block fs-3">1</strong>
+              <span class="text-muted">
+                Proyecto
+              </span>
+            </div>
+
+            <div class="col-4">
+              <strong class="d-block fs-3">3</strong>
+              <span class="text-muted">
+                Solicitudes
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<footer class="bg-dark text-white text-center py-3 mt-4">
+  <p class="mb-0">
+    Innovation Hub — Universidad CENFOTEC
+  </p>
+</footer>
+
+
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

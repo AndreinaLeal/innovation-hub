@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Proyectos — Innovation Hub</title>
+
+  <link rel="stylesheet" href="../estilos/styles.css">
+</head>
+
+<body>
+
+<header class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+
+    <a href="../index.html" class="navbar-brand fw-bold">
+      Innovation Hub
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navPrincipal"
+      aria-controls="navPrincipal"
+      aria-expanded="false"
+      aria-label="Abrir navegación"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <nav
+      class="collapse navbar-collapse"
+      id="navPrincipal"
+      aria-label="Navegación principal"
+    >
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" href="catalogo.html">
+            Catálogo
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="publicar.html">
+            Publicar iniciativa
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            aria-current="page"
+            href="proyectos.html"
+          >
+            Proyectos
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="perfil.html">
+            Mi perfil
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="solicitudes.html">
+            Mis solicitudes
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+
+  </div>
+</header>
+
+
+<main class="container py-5">
+
+  <div
+    class="d-flex flex-wrap justify-content-between
+           align-items-center gap-3 mb-4"
+  >
+
+    <div>
+      <h1 class="h2 mb-1">
+        Proyectos
+      </h1>
+
+      <p class="text-muted mb-0">
+        Consulta los proyectos que se desarrollan a partir de
+        iniciativas de la comunidad.
+      </p>
+    </div>
+
+    <a
+      href="publicar.html"
+      class="btn btn-primary"
+    >
+      Publicar iniciativa
+    </a>
+
+  </div>
+
+
+  <!-- filtros -->
+
+  <section
+    class="card mb-4"
+    aria-labelledby="titulo-filtros-proyectos"
+  >
+    <div class="card-body">
+
+      <h2
+        id="titulo-filtros-proyectos"
+        class="h5"
+      >
+        Buscar proyectos
+      </h2>
+
+      <div class="row g-3">
+
+        <div class="col-md-8">
+          <label
+            for="buscar-proyecto"
+            class="form-label"
+          >
+            Buscar
+          </label>
+
+          <input
+            type="search"
+            id="buscar-proyecto"
+            class="form-control"
+            placeholder="Nombre o palabra clave"
+          >
+        </div>
+
+        <div class="col-md-4">
+          <label
+            for="estado-proyecto"
+            class="form-label"
+          >
+            Estado
+          </label>
+
+          <select
+            id="estado-proyecto"
+            class="form-select"
+          >
+            <option value="">
+              Todos
+            </option>
+
+            <option value="activo">
+              Activo
+            </option>
+
+            <option value="planificacion">
+              En planificación
+            </option>
+
+            <option value="finalizado">
+              Finalizado
+            </option>
+          </select>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- listado -->
+
+  <section aria-labelledby="titulo-listado-proyectos">
+
+    <h2
+      id="titulo-listado-proyectos"
+      class="h4 mb-3"
+    >
+      Proyectos de la comunidad
+    </h2>
+
+
+    <div class="row g-4">
+
+      <article class="col-md-6 col-lg-4">
+
+        <div class="card h-100 shadow-sm">
+
+          <div class="card-body">
+
+            <div class="d-flex justify-content-between mb-3">
+
+              <span class="badge text-bg-primary">
+                Tecnología
+              </span>
+
+              <span class="badge text-bg-success">
+                Activo
+              </span>
+
+            </div>
+
+            <h3 class="h5">
+              Plataforma de tutorías entre pares
+            </h3>
+
+            <p class="text-muted">
+              Proyecto orientado a facilitar la conexión entre
+              estudiantes que necesitan apoyo académico y personas
+              interesadas en ofrecer tutorías.
+            </p>
+
+            <p class="small mb-2">
+              <strong>Equipo:</strong> 5 participantes
+            </p>
+
+            <p class="small">
+              <strong>Competencias:</strong>
+              UX, desarrollo web y bases de datos.
+            </p>
+
+          </div>
+
+          <div class="card-footer bg-white border-0">
+
+            <a
+              href="detalle.html"
+              class="btn btn-outline-primary w-100"
+            >
+              Ver proyecto
+            </a>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="col-md-6 col-lg-4">
+
+        <div class="card h-100 shadow-sm">
+
+          <div class="card-body">
+
+            <div class="d-flex justify-content-between mb-3">
+
+              <span class="badge text-bg-success">
+                Sostenibilidad
+              </span>
+
+              <span class="badge text-bg-warning">
+                En planificación
+              </span>
+
+            </div>
+
+            <h3 class="h5">
+              Campus sostenible
+            </h3>
+
+            <p class="text-muted">
+              Iniciativa para identificar oportunidades de reducción
+              de residuos y mejorar prácticas ambientales dentro del
+              campus.
+            </p>
+
+            <p class="small mb-2">
+              <strong>Equipo:</strong> 3 participantes
+            </p>
+
+            <p class="small">
+              <strong>Competencias:</strong>
+              investigación, ambiente y comunicación.
+            </p>
+
+          </div>
+
+          <div class="card-footer bg-white border-0">
+
+            <a
+              href="detalle.html"
+              class="btn btn-outline-primary w-100"
+            >
+              Ver proyecto
+            </a>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="col-md-6 col-lg-4">
+
+        <div class="card h-100 shadow-sm">
+
+          <div class="card-body">
+
+            <div class="d-flex justify-content-between mb-3">
+
+              <span class="badge text-bg-secondary">
+                Comunidad
+              </span>
+
+              <span class="badge text-bg-success">
+                Activo
+              </span>
+
+            </div>
+
+            <h3 class="h5">
+              Red de colaboración estudiantil
+            </h3>
+
+            <p class="text-muted">
+              Espacio para conectar estudiantes de diferentes áreas
+              y desarrollar soluciones de manera interdisciplinaria.
+            </p>
+
+            <p class="small mb-2">
+              <strong>Equipo:</strong> 6 participantes
+            </p>
+
+            <p class="small">
+              <strong>Competencias:</strong>
+              comunicación, diseño y gestión.
+            </p>
+
+          </div>
+
+          <div class="card-footer bg-white border-0">
+
+            <a
+              href="detalle.html"
+              class="btn btn-outline-primary w-100"
+            >
+              Ver proyecto
+            </a>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer class="bg-dark text-white text-center py-3 mt-4">
+  <p class="mb-0">
+    Innovation Hub — Universidad CENFOTEC
+  </p>
+</footer>
+
+
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
