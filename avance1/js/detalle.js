@@ -1,5 +1,5 @@
 // avance1/js/detalle.js
-import { cargarIniciativas } from "./datos.js";
+import { cargarIniciativas, eliminarIniciativa } from "./datos.js";
 
 const ESTADOS = {
   "en-progreso":     "En progreso",
@@ -61,9 +61,7 @@ function renderizarIniciativa(iniciativa) {
   }
 
   document.getElementById("btn-confirmar-eliminar").addEventListener("click", () => {
-    const eliminadas = JSON.parse(localStorage.getItem("iniciativasEliminadas") || "[]");
-    eliminadas.push(iniciativa.id);
-    localStorage.setItem("iniciativasEliminadas", JSON.stringify(eliminadas));
+    eliminarIniciativa(iniciativa.id);
     window.location.href = "catalogo.html";
   });
 }

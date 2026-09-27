@@ -10,13 +10,14 @@ const ESTADOS = {
 
 const TIPOS = { idea: "Idea", necesidad: "Necesidad", reto: "Reto" };
 const CATEGORIAS = {
+  tecnologia: "Tecnología",
   educacion: "Educación",
-  ambiente: "Ambiente",
-  comunidad: "Gestión comunitaria",
-  academico: "Académico",
-  social: "Social",
-  tecnologico: "Tecnológico",
   sostenibilidad: "Sostenibilidad",
+  "impacto-social": "Impacto social",
+  "negocios-emprendimiento": "Negocios y emprendimiento",
+  "salud-bienestar": "Salud y bienestar",
+  "cultura-creatividad": "Cultura y creatividad",
+  otro: "Otro",
 };
 
 const formateadorFecha = new Intl.DateTimeFormat("es-CR", {
@@ -39,7 +40,7 @@ function crearTarjeta(iniciativa) {
     <article class="card h-100">
       <div class="card-body d-flex flex-column">
         <h3 class="h5 card-title">${iniciativa.titulo}</h3>
-        <p class="text-muted small mb-2">${TIPOS[iniciativa.tipo]} · ${CATEGORIAS[iniciativa.categoria]}</p>
+        <p class="text-muted small mb-2">${TIPOS[iniciativa.tipo]} · ${CATEGORIAS[iniciativa.categoria] ?? iniciativa.categoria}</p>
         <p class="card-text">${iniciativa.resumen}</p>
         <p class="small">Publicado por <strong>${iniciativa.autor}</strong> el <time datetime="${iniciativa.fecha}">${fecha}</time></p>
         <h4 class="h6">Competencias requeridas</h4>
@@ -112,9 +113,7 @@ async function iniciar() {
     return;
   }
 
-  const eliminadas = JSON.parse(localStorage.getItem("iniciativasEliminadas") || "[]");
-  todasLasIniciativas = resultado.datos.filter((iniciativa) => !eliminadas.includes(iniciativa.id));
-
+  todasLasIniciativas = resultado.datos;
   renderizarResultados(todasLasIniciativas);
 
   const formularioFiltros = document.querySelector("aside form");

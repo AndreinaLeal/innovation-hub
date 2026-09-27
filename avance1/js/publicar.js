@@ -1,10 +1,15 @@
 // avance1/js/publicar.js
+import { cargarIniciativas, guardarNuevaIniciativa, guardarModificacion, obtenerSiguienteId } from "./datos.js";
 
-function crearFilaCompetencia() {
+let modoEdicion = false;
+let idEnEdicion = null;
+let datosActuales = [];
+
+function crearFilaCompetencia(valor = "") {
   const fila = document.createElement("div");
   fila.className = "input-group mb-2";
   fila.innerHTML = `
-    <input type="text" name="competencia[]" class="form-control" placeholder="Ej: Diseño UX" aria-label="Competencia">
+    <input type="text" name="competencia[]" class="form-control" placeholder="Ej: Diseño UX" aria-label="Competencia" value="${valor}">
     <button type="button" class="btn btn-outline-danger boton-quitar" aria-label="Quitar esta competencia">×</button>
   `;
   return fila;
@@ -19,13 +24,12 @@ function inicializarCompetencias() {
   });
 
   // Delegación de eventos: un solo listener para todos los botones "×",
-  // incluso los que se agregan después.
+  // incluso los que se agregan o se vuelven a dibujar después.
   lista.addEventListener("click", (evento) => {
     if (!evento.target.classList.contains("boton-quitar")) return;
 
     const filas = lista.querySelectorAll(".input-group");
     if (filas.length <= 1) {
-      // Siempre debe quedar al menos una fila de competencia
       evento.target.closest(".input-group").querySelector("input").value = "";
       return;
     }
@@ -94,9 +98,61 @@ function validarFormulario(formulario) {
   return esValido;
 }
 
-function inicializarValidacion() {
-  const formulario = document.querySelector("form");
+function leerFormulario(formulario) {
+  const competencias = Array.from(formulario.querySelectorAll('input[name="competencia[]"]'))
+    .map((c) => c.value.trim())
+    .filter((valor) => valor);
 
+  const etiquetas = document.getElementById("etiquetas").value
+    .split(",")
+    .map((e) => e.trim())
+    .filter((e) => e);
+
+  const visibilidad = formulario.querySelector('input[name="visibilidad"]:checked')?.value;
+
+  return {
+    titulo: document.getElementById("titulo").value.trim(),
+    tipo: document.getElementById("tipo").value,
+    categoria: document.getElementById("categoria").value,
+    resumen: document.getElementById("resumen").value.trim(),
+    descripcion: document.getElementById("descripcion").value.trim(),
+    problema: document.getElementById("problema").value.trim(),
+    beneficiarios: document.getElementById("beneficiarios").value.trim(),
+    competencias,
+    visibilidad,
+    etiquetas,
+    miembrosMeta: Number(document.getElementById("participantes").value),
+  };
+}
+
+function precargarFormulario(iniciativa) {
+  document.getElementById("titulo-formulario").textContent = "Editar iniciativa";
+  document.getElementById("boton-enviar").textContent = "Guardar cambios";
+
+  document.getElementById("titulo").value = iniciativa.titulo ?? "";
+  document.getElementById("tipo").value = iniciativa.tipo ?? "";
+  document.getElementById("categoria").value = iniciativa.categoria ?? "";
+  document.getElementById("resumen").value = iniciativa.resumen ?? "";
+  document.getElementById("descripcion").value = iniciativa.descripcion ?? "";
+  document.getElementById("problema").value = iniciativa.problema ?? "";
+  document.getElementById("beneficiarios").value = iniciativa.beneficiarios ?? "";
+  document.getElementById("participantes").value = iniciativa.miembrosMeta ?? "";
+  document.getElementById("etiquetas").value = (iniciativa.etiquetas ?? []).join(", ");
+
+  if (iniciativa.visibilidad) {
+    const radio = document.querySelector(`input[name="visibilidad"][value="${iniciativa.visibilidad}"]`);
+    if (radio) radio.checked = true;
+  }
+
+  const lista = document.getElementById("lista-competencias");
+  lista.innerHTML = "";
+  const competencias = iniciativa.competencias?.length ? iniciativa.competencias : [""];
+  competencias.forEach((competencia) => {
+    lista.appendChild(crearFilaCompetencia(competencia));
+  });
+}
+
+function inicializarValidacionYEnvio(formulario) {
   formulario.addEventListener("submit", (evento) => {
     evento.preventDefault();
 
@@ -104,13 +160,28 @@ function inicializarValidacion() {
       return;
     }
 
-    // Simulación de guardado: como no hay servidor en este avance,
-    // solo confirmamos y regresamos al catálogo.
-    alert("Iniciativa publicada (simulado). En el Avance 2 esto se guardará en el servidor.");
-    window.location.href = "catalogo.html";
+    const datosFormulario = leerFormulario(formulario);
+
+    if (modoEdicion) {
+      guardarModificacion(idEnEdicion, datosFormulario);
+      alert("Cambios guardados.");
+      window.location.href = `detalle.html?id=${idEnEdicion}`;
+    } else {
+      const nuevaIniciativa = {
+        id: obtenerSiguienteId(datosActuales),
+        autor: "Tú",
+        fecha: new Date().toISOString().slice(0, 10),
+        estado: "buscando-equipo",
+        miembrosActuales: 1,
+        miembros: ["Tú"],
+        ...datosFormulario,
+      };
+      guardarNuevaIniciativa(nuevaIniciativa);
+      alert("Iniciativa publicada.");
+      window.location.href = "catalogo.html";
+    }
   });
 
-  // Quita el mensaje de error apenas la persona corrige el campo
   formulario.addEventListener("input", (evento) => {
     if (evento.target.classList.contains("is-invalid")) {
       limpiarError(evento.target);
@@ -118,7 +189,28 @@ function inicializarValidacion() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+async function iniciar() {
+  const parametros = new URLSearchParams(window.location.search);
+  const idParametro = Number(parametros.get("id"));
+  modoEdicion = parametros.get("editar") === "1" && Boolean(idParametro);
+
+  const resultado = await cargarIniciativas();
+  datosActuales = resultado.estado === "listo" ? resultado.datos : [];
+
+  const formulario = document.querySelector("form");
+
+  if (modoEdicion) {
+    const iniciativa = datosActuales.find((i) => i.id === idParametro);
+    if (iniciativa) {
+      idEnEdicion = idParametro;
+      precargarFormulario(iniciativa);
+    } else {
+      modoEdicion = false; // no existe: se trata como publicación nueva
+    }
+  }
+
   inicializarCompetencias();
-  inicializarValidacion();
-});
+  inicializarValidacionYEnvio(formulario);
+}
+
+document.addEventListener("DOMContentLoaded", iniciar);

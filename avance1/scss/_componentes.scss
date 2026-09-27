@@ -1,0 +1,5 @@
+// Componentes personalizados sobre Bootstrap
+.etiqueta--tipo,
+.lista-competencias li::marker {
+  color: $secondary;
+}

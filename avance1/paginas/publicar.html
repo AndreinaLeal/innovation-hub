@@ -31,7 +31,7 @@
   <div class="row justify-content-center">
     <div class="col-lg-8">
 
-      <h1 class="h2">Publicar una iniciativa</h1>
+      <h1 class="h2" id="titulo-formulario">Publicar una iniciativa</h1>
       <p class="text-muted mb-4">
         Comparte una idea, una necesidad o un reto, y describe qué competencias
         necesitas para llevarla adelante.
@@ -62,10 +62,14 @@
               <label for="categoria" class="form-label">Categoría</label>
               <select id="categoria" name="categoria" class="form-select" required>
                 <option value="">Selecciona una opción</option>
-                <option value="academico">Académico</option>
-                <option value="social">Social</option>
-                <option value="tecnologico">Tecnológico</option>
+                <option value="tecnologia">Tecnología</option>
+                <option value="educacion">Educación</option>
                 <option value="sostenibilidad">Sostenibilidad</option>
+                <option value="impacto-social">Impacto social</option>
+                <option value="negocios-emprendimiento">Negocios y emprendimiento</option>
+                <option value="salud-bienestar">Salud y bienestar</option>
+                <option value="cultura-creatividad">Cultura y creatividad</option>
+                <option value="otro">Otro</option>
               </select>
             </div>
           </div>
@@ -149,7 +153,7 @@
         </fieldset>
 
         <div class="d-flex gap-3">
-          <button type="submit" class="btn btn-primary">Publicar iniciativa</button>
+          <button type="submit" class="btn btn-primary" id="boton-enviar">Publicar iniciativa</button>
           <a href="catalogo.html" class="btn btn-link text-muted">Cancelar</a>
         </div>
 
@@ -164,6 +168,6 @@
 </footer>
 
 <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../js/publicar.js"></script>
+<script type="module" src="../js/publicar.js"></script>
 </body>
 </html>
