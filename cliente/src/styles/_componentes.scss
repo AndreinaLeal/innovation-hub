@@ -1,0 +1,18 @@
+// Componentes propios sobre Bootstrap
+.lista-competencias li::marker { color: $secondary; }
+
+// Contador de caracteres y mensajes de error de formulario
+.contador-caracteres { font-size: 0.8125rem; color: #6c757d; white-space: nowrap; }
+.contador-caracteres--alerta { color: $secondary; font-weight: 600; }
+.campo-error { color: $danger; font-size: 0.875rem; margin-top: 0.25rem; }
+// Solo el campo inválido cambia de color: el resto del formulario se mantiene neutro
+.form-control.is-invalid, .form-select.is-invalid { background-image: none; padding-right: 0.75rem; }
+
+// Avisos flotantes (sustituyen a alert())
+.contenedor-avisos { position: fixed; top: 1rem; right: 1rem; z-index: 1090; display: flex; flex-direction: column; gap: 0.5rem; max-width: min(92vw, 380px); }
+
+.fondo-modal { position: fixed; inset: 0; background: rgba(18, 35, 63, 0.5); z-index: 1050; }
+.modal.mostrar { display: block; z-index: 1055; }
+
+.tarjeta-enlace { text-decoration: none; color: inherit; }
+.min-vh-contenido { min-height: 60vh; }
