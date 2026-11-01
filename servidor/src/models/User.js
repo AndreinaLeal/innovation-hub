@@ -1,27 +1,24 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema(
+const { Schema } = mongoose;
+
+export const AVAILABILITY = ["alta", "media", "baja"];
+
+const userSchema = new Schema(
   {
-    name: { type: String, required: true, trim: true },
+    name: { type: String, required: true, trim: true, maxlength: 80 },
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     passwordHash: { type: String, required: true },
-    career: { type: String, trim: true, default: "" },
-    availability: { type: String, enum: ["low", "medium", "high"], default: "medium" },
-    bio: { type: String, trim: true, default: "" },
-    skills: { type: [String], default: [] },
+    career: { type: String, trim: true, maxlength: 80, default: "" },
+    bio: { type: String, trim: true, maxlength: 400, default: "" },
+    availability: { type: String, enum: AVAILABILITY, default: "media" },
+    // Relación N:M usuario-competencia: referencias a la colección "skills".
+    skills: [{ type: Schema.Types.ObjectId, ref: "Skill" }],
   },
   { timestamps: true }
 );
 
-// Cómo se ve el usuario al convertirlo a JSON: nunca incluye el hash
-userSchema.set("toJSON", {
-  transform: (doc, ret) => {
-    ret.id = ret._id.toString();
-    delete ret._id;
-    delete ret.__v;
-    delete ret.passwordHash;
-    return ret;
-  },
-});
+userSchema.index({ name: 1 });
+userSchema.index({ skills: 1 });
 
 export const User = mongoose.model("User", userSchema);
