@@ -1,0 +1,2662 @@
+{
+  "info": {
+    "name": "Innovation Hub API (entrega 2)",
+    "description": "Ejecutar con 'npm run seed' ya aplicado, en orden (Collection Runner). Variables: baseUrl, tokens y ids se completan solos. 'iniciativaPrivadaId' se obtiene con el pre-request.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000/api"
+    },
+    {
+      "key": "emailNuevo",
+      "value": ""
+    },
+    {
+      "key": "iniciativaPrivadaId",
+      "value": "000000000000000000000001"
+    },
+    {
+      "key": "ownerId",
+      "value": "000000000000000000000001"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "if (!pm.collectionVariables.get('emailNuevo')) pm.collectionVariables.set('emailNuevo', 'prueba.' + Date.now() + '@example.com');"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "0. Salud",
+      "item": [
+        {
+          "name": "Health",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "1. Autenticación",
+      "item": [
+        {
+          "name": "Registro correcto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set(\"tokenNuevo\", pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Prueba Postman\",\n  \"email\": \"{{emailNuevo}}\",\n  \"password\": \"Password123\"\n}"
+            },
+            "description": "Antes de ejecutar, la variable emailNuevo se genera sola (pre-request de la colección)."
+          }
+        },
+        {
+          "name": "Registro con datos inválidos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 400\", () => pm.response.to.have.status(400));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"A\",\n  \"email\": \"no-es-correo\",\n  \"password\": \"123\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Registro con correo repetido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 409\", () => pm.response.to.have.status(409));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Diego Fernández\",\n  \"email\": \"diego.fernandez@example.com\",\n  \"password\": \"Password123\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Login correcto (propietario)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));",
+                  "pm.collectionVariables.set(\"tokenOwner\", pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"diego.fernandez@example.com\",\n  \"password\": \"Password123\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Guardar id del propietario",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));",
+                  "pm.collectionVariables.set(\"ownerId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Login correcto (otra persona)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));",
+                  "pm.collectionVariables.set(\"tokenOther\", pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"tatiana.solis@example.com\",\n  \"password\": \"Password123\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Login con contraseña incorrecta",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 401\", () => pm.response.to.have.status(401));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"diego.fernandez@example.com\",\n  \"password\": \"Incorrecta1\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Perfil propio (me)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Me sin sesión",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 401\", () => pm.response.to.have.status(401));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Usuarios y competencias",
+      "item": [
+        {
+          "name": "Buscar usuarios por competencia y disponibilidad",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users?skill=SQL&page=1&size=5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "skill",
+                  "value": "SQL"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "5"
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Buscar usuarios con disponibilidad inexistente (vacío)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users?availability=nunca",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "availability",
+                  "value": "nunca"
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Usuario inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 404\", () => pm.response.to.have.status(404));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/000000000000000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "000000000000000000000000"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Buscar usuarios sin sesión",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 401\", () => pm.response.to.have.status(401));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Actualizar perfil correcto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "me"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Diego Fernández\",\n  \"career\": \"Ingeniería de Software\",\n  \"bio\": \"\",\n  \"availability\": \"alta\",\n  \"skills\": [\n    \"Node.js\",\n    \"SQL\"\n  ]\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Actualizar perfil: intentar cambiar el correo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 400\", () => pm.response.to.have.status(400));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "me"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"otro@example.com\",\n  \"name\": \"Diego\",\n  \"availability\": \"alta\",\n  \"skills\": []\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Competencias (sugerencias)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/skills?q=sql",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "skills"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "sql"
+                }
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Iniciativas",
+      "item": [
+        {
+          "name": "Crear iniciativa correcta",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set(\"iniciativaId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Plataforma de mentorías\",\n  \"type\": \"idea\",\n  \"category\": \"educacion\",\n  \"summary\": \"Conectar estudiantes avanzados con nuevos.\",\n  \"description\": \"Una plataforma para organizar mentorías entre estudiantes de distintos cuatrimestres.\",\n  \"visibility\": \"publica\",\n  \"targetMembers\": 4,\n  \"skills\": [\n    \"Bases de datos\",\n    \"SQL\"\n  ]\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Crear iniciativa con datos inválidos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 400\", () => pm.response.to.have.status(400));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"x\",\n  \"type\": \"nada\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Crear iniciativa sin sesión",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 401\", () => pm.response.to.have.status(401));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Plataforma de mentorías\",\n  \"type\": \"idea\",\n  \"category\": \"educacion\",\n  \"summary\": \"Conectar estudiantes avanzados con nuevos.\",\n  \"description\": \"Una plataforma para organizar mentorías entre estudiantes de distintos cuatrimestres.\",\n  \"visibility\": \"publica\",\n  \"targetMembers\": 4,\n  \"skills\": [\n    \"Bases de datos\",\n    \"SQL\"\n  ]\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Listar con filtros y paginación",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives?type=idea&q=mentor&sort=title&page=1&size=5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "idea"
+                },
+                {
+                  "key": "q",
+                  "value": "mentor"
+                },
+                {
+                  "key": "sort",
+                  "value": "title"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Listar con filtro inválido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 400\", () => pm.response.to.have.status(400));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives?type=cualquiera",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "cualquiera"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Detalle correcto (pública, sin sesión)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Detalle inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 404\", () => pm.response.to.have.status(404));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/000000000000000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "000000000000000000000000"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Detalle con id mal formado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 404\", () => pm.response.to.have.status(404));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/abc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "abc"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Modificar correcto (propietario)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Plataforma de mentorías v2\",\n  \"type\": \"idea\",\n  \"category\": \"educacion\",\n  \"summary\": \"Conectar estudiantes avanzados con nuevos.\",\n  \"description\": \"Una plataforma para organizar mentorías entre estudiantes de distintos cuatrimestres.\",\n  \"visibility\": \"publica\",\n  \"targetMembers\": 4,\n  \"skills\": [\n    \"Bases de datos\",\n    \"SQL\"\n  ]\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Modificar con datos inválidos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 400\", () => pm.response.to.have.status(400));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Plataforma de mentorías\",\n  \"type\": \"idea\",\n  \"category\": \"educacion\",\n  \"summary\": \"corto\",\n  \"description\": \"Una plataforma para organizar mentorías entre estudiantes de distintos cuatrimestres.\",\n  \"visibility\": \"publica\",\n  \"targetMembers\": 4,\n  \"skills\": [\n    \"Bases de datos\",\n    \"SQL\"\n  ]\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Modificar iniciativa ajena",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 403\", () => pm.response.to.have.status(403));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Plataforma de mentorías\",\n  \"type\": \"idea\",\n  \"category\": \"educacion\",\n  \"summary\": \"Conectar estudiantes avanzados con nuevos.\",\n  \"description\": \"Una plataforma para organizar mentorías entre estudiantes de distintos cuatrimestres.\",\n  \"visibility\": \"publica\",\n  \"targetMembers\": 4,\n  \"skills\": [\n    \"Bases de datos\",\n    \"SQL\"\n  ]\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Modificar sin sesión",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 401\", () => pm.response.to.have.status(401));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Plataforma de mentorías\",\n  \"type\": \"idea\",\n  \"category\": \"educacion\",\n  \"summary\": \"Conectar estudiantes avanzados con nuevos.\",\n  \"description\": \"Una plataforma para organizar mentorías entre estudiantes de distintos cuatrimestres.\",\n  \"visibility\": \"publica\",\n  \"targetMembers\": 4,\n  \"skills\": [\n    \"Bases de datos\",\n    \"SQL\"\n  ]\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Modificar inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 404\", () => pm.response.to.have.status(404));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/000000000000000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "000000000000000000000000"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Plataforma de mentorías\",\n  \"type\": \"idea\",\n  \"category\": \"educacion\",\n  \"summary\": \"Conectar estudiantes avanzados con nuevos.\",\n  \"description\": \"Una plataforma para organizar mentorías entre estudiantes de distintos cuatrimestres.\",\n  \"visibility\": \"publica\",\n  \"targetMembers\": 4,\n  \"skills\": [\n    \"Bases de datos\",\n    \"SQL\"\n  ]\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Crear iniciativa privada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set(\"iniciativaPrivadaId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Iniciativa privada de prueba\",\n  \"type\": \"idea\",\n  \"category\": \"educacion\",\n  \"summary\": \"Conectar estudiantes avanzados con nuevos.\",\n  \"description\": \"Una plataforma para organizar mentorías entre estudiantes de distintos cuatrimestres.\",\n  \"visibility\": \"privada\",\n  \"targetMembers\": 4,\n  \"skills\": [\n    \"Bases de datos\",\n    \"SQL\"\n  ]\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Detalle de iniciativa privada ajena (se oculta)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 404\", () => pm.response.to.have.status(404));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaPrivadaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaPrivadaId}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Solicitudes y equipos",
+      "item": [
+        {
+          "name": "Crear solicitud correcta",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set(\"solicitudId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}/requests",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}",
+                "requests"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Quiero aportar mis conocimientos de bases de datos al equipo.\",\n  \"mainSkill\": \"SQL\",\n  \"desiredRole\": \"Analista de datos\",\n  \"availability\": \"alta\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Crear solicitud con datos inválidos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 400\", () => pm.response.to.have.status(400));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}/requests",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}",
+                "requests"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"corto\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Crear solicitud duplicada (RN-05)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 409\", () => pm.response.to.have.status(409));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}/requests",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}",
+                "requests"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Quiero aportar mis conocimientos de bases de datos al equipo.\",\n  \"mainSkill\": \"SQL\",\n  \"desiredRole\": \"Analista de datos\",\n  \"availability\": \"alta\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Crear solicitud a iniciativa inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 404\", () => pm.response.to.have.status(404));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/000000000000000000000000/requests",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "000000000000000000000000",
+                "requests"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Quiero aportar mis conocimientos de bases de datos al equipo.\",\n  \"mainSkill\": \"SQL\",\n  \"desiredRole\": \"Analista de datos\",\n  \"availability\": \"alta\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Crear solicitud sin sesión",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 401\", () => pm.response.to.have.status(401));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}/requests",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}",
+                "requests"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Quiero aportar mis conocimientos de bases de datos al equipo.\",\n  \"mainSkill\": \"SQL\",\n  \"desiredRole\": \"Analista de datos\",\n  \"availability\": \"alta\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Mis solicitudes",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/requests/mine?status=pendiente",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "requests",
+                "mine"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "pendiente"
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Modificar solicitud pendiente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/requests/{{solicitudId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "requests",
+                "{{solicitudId}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Quiero aportar mis conocimientos de bases de datos al equipo.\",\n  \"mainSkill\": \"SQL\",\n  \"desiredRole\": \"Diseñador de base de datos\",\n  \"availability\": \"alta\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Aceptar siendo quien solicita (403)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 403\", () => pm.response.to.have.status(403));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/requests/{{solicitudId}}/accept",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "requests",
+                "{{solicitudId}}",
+                "accept"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Solicitudes recibidas",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/requests/received?status=pendiente",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "requests",
+                "received"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "pendiente"
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Solicitudes de la iniciativa (no propietario)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 403\", () => pm.response.to.have.status(403));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}/requests",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}",
+                "requests"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Aceptar solicitud (RN-07/RN-08)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/requests/{{solicitudId}}/accept",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "requests",
+                "{{solicitudId}}",
+                "accept"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Aceptar de nuevo (ya resuelta)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 409\", () => pm.response.to.have.status(409));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/requests/{{solicitudId}}/accept",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "requests",
+                "{{solicitudId}}",
+                "accept"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Cancelar solicitud inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 404\", () => pm.response.to.have.status(404));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/requests/000000000000000000000000/cancel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "requests",
+                "000000000000000000000000",
+                "cancel"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Ver equipo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}/members",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}",
+                "members"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Retirar al propietario (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 409\", () => pm.response.to.have.status(409));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}/members/{{ownerId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}",
+                "members",
+                "{{ownerId}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Retirar miembro sin ser propietario",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 403\", () => pm.response.to.have.status(403));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}/members/{{ownerId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}",
+                "members",
+                "{{ownerId}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Proyectos",
+      "item": [
+        {
+          "name": "Convertir sin ser propietario",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 403\", () => pm.response.to.have.status(403));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"initiativeId\": \"{{iniciativaId}}\",\n  \"name\": \"Mentorías\",\n  \"description\": \"Proyecto de mentorías entre estudiantes.\",\n  \"objective\": \"Conectar estudiantes.\",\n  \"startDate\": \"2026-11-02\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Convertir con datos inválidos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 400\", () => pm.response.to.have.status(400));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"initiativeId\": \"{{iniciativaId}}\",\n  \"name\": \"x\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Convertir correcto (RN-09 cumplida)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set(\"proyectoId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"initiativeId\": \"{{iniciativaId}}\",\n  \"name\": \"Mentorías\",\n  \"description\": \"Proyecto de mentorías entre estudiantes.\",\n  \"objective\": \"Conectar estudiantes.\",\n  \"startDate\": \"2026-11-02\",\n  \"repositoryUrl\": \"https://github.com/vitejs/vite\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Convertir de nuevo (409)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 409\", () => pm.response.to.have.status(409));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"initiativeId\": \"{{iniciativaId}}\",\n  \"name\": \"Mentorías\",\n  \"description\": \"Proyecto de mentorías entre estudiantes.\",\n  \"objective\": \"Conectar estudiantes.\",\n  \"startDate\": \"2026-11-02\"\n}"
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Listar proyectos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/projects?page=1&size=5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "5"
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Detalle de proyecto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/projects/{{proyectoId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects",
+                "{{proyectoId}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Proyecto inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 404\", () => pm.response.to.have.status(404));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/projects/000000000000000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects",
+                "000000000000000000000000"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Proyectos sin sesión",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 401\", () => pm.response.to.have.status(401));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Cierre",
+      "item": [
+        {
+          "name": "Eliminar iniciativa ajena",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 403\", () => pm.response.to.have.status(403));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Archivar iniciativa con equipo (RN-10)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Iniciativa archivada: ya no visible para otros",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 404\", () => pm.response.to.have.status(404));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/{{iniciativaId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "{{iniciativaId}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOther}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Eliminar inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 404\", () => pm.response.to.have.status(404));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/initiatives/000000000000000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "initiatives",
+                "000000000000000000000000"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenOwner}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Cerrar sesión",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 204\", () => pm.response.to.have.status(204));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenNuevo}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Token cerrado ya no sirve",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Estado 401\", () => pm.response.to.have.status(401));",
+                  "if (pm.response.code >= 400) pm.test(\"Formato de error uniforme\", () => { const e = pm.response.json().error; pm.expect(e).to.have.property(\"code\"); pm.expect(e).to.have.property(\"message\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenNuevo}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
+    }
+  ]
+}
