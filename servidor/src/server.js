@@ -1,14 +1,11 @@
-import app from "./app.js";
 import { env } from "./config/env.js";
-import { connectDb } from "./config/db.js";
+import { connectDB } from "./config/db.js";
+import { createApp } from "./app.js";
 
 try {
-  await connectDb();
-} catch (error) {
-  console.error("No se pudo conectar a MongoDB:", error.message);
+  await connectDB();
+  createApp().listen(env.port, () => console.log(`API escuchando en http://localhost:${env.port}/api`));
+} catch (err) {
+  console.error("No se pudo iniciar el servidor:", err.message);
   process.exit(1);
 }
-
-app.listen(env.port, () => {
-  console.log(`API escuchando en http://localhost:${env.port}`);
-});

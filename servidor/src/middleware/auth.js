@@ -1,5 +1,5 @@
 import { authService } from "../services/authService.js";
-import { unauthorized } from "../errors/AppError.js";
+import { unauthorized } from "../utils/httpError.js";
 
 function readToken(req) {
   const header = req.headers.authorization || "";
@@ -7,33 +7,28 @@ function readToken(req) {
   return scheme === "Bearer" && token ? token : null;
 }
 
-// Para rutas públicas que cambian según quién pregunta (ej. visibilidad)
-export async function optionalAuth(req, res, next) {
+/** Si hay token válido, deja req.user; si no hay token, continúa como anónimo. */
+export async function optionalAuth(req, _res, next) {
   try {
     const token = readToken(req);
     if (token) {
-      const user = await authService.getUserByToken(token);
-      if (user) {
-        req.user = user;
-        req.token = token;
-      }
+      const auth = await authService.authenticate(token);
+      if (!auth) throw unauthorized("La sesión no es válida o expiró.");
+      req.user = auth.user;
+      req.token = token;
     }
     next();
-  } catch (err) {
-    next(err);
-  }
+  } catch (e) { next(e); }
 }
 
-// Para rutas que exigen sesión
-export async function requireAuth(req, res, next) {
+/** Exige sesión válida. */
+export async function requireAuth(req, _res, next) {
   try {
     const token = readToken(req);
-    const user = token ? await authService.getUserByToken(token) : null;
-    if (!user) throw unauthorized("Debes iniciar sesión");
-    req.user = user;
+    const auth = token ? await authService.authenticate(token) : null;
+    if (!auth) throw unauthorized("Debes iniciar sesión para realizar esta acción.");
+    req.user = auth.user;
     req.token = token;
     next();
-  } catch (err) {
-    next(err);
-  }
+  } catch (e) { next(e); }
 }

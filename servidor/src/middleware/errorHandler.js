@@ -1,25 +1,29 @@
-import { AppError, notFound } from "../errors/AppError.js";
+import { HttpError, notFound } from "../utils/httpError.js";
 
-export function routeNotFound(req, res, next) {
-  next(notFound("La ruta solicitada no existe"));
+export function routeNotFound(_req, _res, next) {
+  next(notFound("La ruta solicitada no existe."));
 }
 
-export function errorHandler(err, req, res, next) {
-  if (err instanceof AppError) {
-    const body = { error: { code: err.code, message: err.message } };
-    if (err.details) body.error.details = err.details;
-    return res.status(err.status).json(body);
-  }
+// Formato de error uniforme: { error: { code, message, details? } }
+export function errorHandler(err, _req, res, _next) {
+  let status = 500;
+  let body = { code: "INTERNAL_ERROR", message: "Ocurrió un error inesperado. Intenta de nuevo más tarde." };
 
-  if (err.type === "entity.parse.failed") {
-    return res.status(400).json({
-      error: { code: "VALIDATION_ERROR", message: "El cuerpo de la petición no es un JSON válido" },
-    });
+  if (err instanceof HttpError) {
+    status = err.status;
+    body = { code: err.code, message: err.message, ...(err.details ? { details: err.details } : {}) };
+  } else if (err?.type === "entity.parse.failed") {
+    status = 400;
+    body = { code: "INVALID_JSON", message: "El cuerpo de la petición no es un JSON válido." };
+  } else if (err?.type === "entity.too.large") {
+    status = 400;
+    body = { code: "PAYLOAD_TOO_LARGE", message: "El cuerpo de la petición es demasiado grande." };
+  } else if (err?.code === 11000) {
+    status = 409;
+    body = { code: "DUPLICATE", message: "Ya existe un registro con esos datos." };
+  } else {
+    // Solo en el servidor: nunca se envía la traza ni el error de la base de datos al cliente.
+    console.error(err);
   }
-
-  // El detalle real solo se imprime en el servidor, nunca se envía al cliente
-  console.error(err);
-  res.status(500).json({
-    error: { code: "INTERNAL_ERROR", message: "Ocurrió un error inesperado" },
-  });
+  res.status(status).json({ error: body });
 }
