@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CampoAreaTexto, CampoOpciones, CampoSelect, CampoTexto } from "../common/Campos.jsx";
+import ChipsInput from "../common/ChipsInput.jsx";
 import SkillsInput from "../common/SkillsInput.jsx";
 import { useForm } from "../../hooks/useForm.js";
 import { fieldErrors } from "../../api/http.js";
@@ -8,7 +9,7 @@ import { CATEGORIAS, ESTADOS, TIPOS, VISIBILIDADES } from "../../utils/labels.js
 // Mismos nombres de campo que el contrato de la API, para mapear errores del servidor 1 a 1.
 const VACIO = {
   title: "", type: "", category: "", summary: "", description: "", problem: "", beneficiaries: "",
-  targetMembers: "", skills: [], visibility: "", tags: "", status: "buscando-equipo",
+  targetMembers: "", skills: [], visibility: "", tags: [], status: "buscando-equipo",
 };
 
 function validar(v) {
@@ -31,7 +32,7 @@ export const aValoresFormulario = (ini) => ({
   title: ini.title, type: ini.type, category: ini.category, summary: ini.summary,
   description: ini.description ?? "", problem: ini.problem ?? "", beneficiaries: ini.beneficiaries ?? "",
   targetMembers: String(ini.targetMembers), skills: ini.skills, visibility: ini.visibility,
-  tags: (ini.tags ?? []).join(", "), status: ini.status,
+  tags: ini.tags ?? [], status: ini.status,
 });
 
 export default function InitiativeForm({ valoresIniciales = VACIO, modoEdicion = false, onGuardar, onCancelar }) {
@@ -45,7 +46,7 @@ export default function InitiativeForm({ valoresIniciales = VACIO, modoEdicion =
       title: v.title.trim(), type: v.type, category: v.category, summary: v.summary.trim(),
       description: v.description.trim(), problem: v.problem.trim(), beneficiaries: v.beneficiaries.trim(),
       targetMembers: Number(v.targetMembers), skills: v.skills, visibility: v.visibility,
-      tags: v.tags.split(",").map((t) => t.trim()).filter(Boolean),
+      tags: v.tags,
       ...(modoEdicion ? { status: v.status } : {}),
     };
     try {
@@ -92,7 +93,9 @@ export default function InitiativeForm({ valoresIniciales = VACIO, modoEdicion =
         <CampoOpciones name="visibility" leyenda="¿Quién puede ver esta iniciativa?" value={form.values.visibility} onChange={(e) => { form.handleChange(e); form.touch("visibility"); }}
           error={form.errors.visibility}
           opciones={Object.entries(VISIBILIDADES).map(([valor, v]) => ({ valor, texto: `${v.texto} — ${v.ayuda}` }))} />
-        <CampoTexto {...c("tags")} etiqueta="Etiquetas (opcional)" maxLength={200} ayuda="Sepáralas con comas, por ejemplo: educación, movilidad, voluntariado." />
+        <ChipsInput name="tags" etiqueta="Etiquetas (opcional)" value={form.values.tags} onChange={(lista) => form.setValue("tags", lista)}
+          error={form.errors.tags} max={10} maxLength={40} placeholder="Ej: educación, movilidad, voluntariado"
+          ayuda="Agrega cada etiqueta con Enter y quítala con la X. Máximo 10." />
         {modoEdicion && (
           <div className="col-md-6">
             <CampoSelect {...c("status")} etiqueta="Estado" opciones={Object.entries(ESTADOS).map(([valor, e]) => ({ valor, texto: e.texto }))} />
