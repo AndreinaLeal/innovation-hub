@@ -81,6 +81,7 @@ export default function InitiativeDetailPage() {
                 </div>
               ) : (
                 <>
+                  <p className="lead mt-4 mb-0">{ini.summary}</p>
                   <section aria-labelledby="descripcion-titulo" className="mt-4 pt-3 border-top">
                     <h2 id="descripcion-titulo" className="h5">Descripción</h2>
                     <p style={{ whiteSpace: "pre-line" }}>{ini.description}</p>

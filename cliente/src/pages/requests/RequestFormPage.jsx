@@ -2,12 +2,14 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { initiativesApi, requestsApi } from "../../api/index.js";
 import AsyncContent from "../../components/common/AsyncContent.jsx";
 import RequestForm from "../../components/requests/RequestForm.jsx";
+import { useAuth } from "../../context/AuthContext.jsx";
 import { useToast } from "../../context/ToastContext.jsx";
 import { useFetch } from "../../hooks/useFetch.js";
 
 /** Crear solicitud (/iniciativas/:id/solicitar) o modificar una pendiente (/mis-solicitudes/:solicitudId/editar). */
 export default function RequestFormPage({ edicion = false }) {
   const { id, solicitudId } = useParams();
+  const { user } = useAuth();
   const toast = useToast();
   const navegar = useNavigate();
 
@@ -17,6 +19,8 @@ export default function RequestFormPage({ edicion = false }) {
   );
   const tituloIniciativa = edicion ? data?.initiative.title : data?.title;
   const propietario = !edicion ? data?.owner.name : null;
+  // Competencias ofrecidas: las de la persona + las que pide la iniciativa (sin repetir).
+  const competencias = [...new Set([...(user?.skills ?? []), ...(!edicion ? data?.skills ?? [] : [])])];
 
   const guardar = async (cuerpo) => {
     if (edicion) {
@@ -55,6 +59,7 @@ export default function RequestFormPage({ edicion = false }) {
                   <RequestForm
                     key={solicitudId ?? id}
                     valoresIniciales={edicion ? { message: data.message, mainSkill: data.mainSkill, desiredRole: data.desiredRole, availability: data.availability } : undefined}
+                    competencias={competencias}
                     textoEnviar={edicion ? "Guardar cambios" : "Enviar solicitud"}
                     ayudaMensaje="Cuéntale al propietario por qué te interesa esta iniciativa."
                     onGuardar={guardar}

@@ -51,3 +51,16 @@ export const formatearFecha = (iso) => {
   const fecha = new Date(iso.length === 10 ? `${iso}T12:00:00` : iso);
   return Number.isNaN(fecha.getTime()) ? "" : fmt.format(fecha);
 };
+
+// Catálogo de roles para las solicitudes (el contrato recibe el texto del rol).
+export const ROLES = [
+  "Desarrollo frontend",
+  "Desarrollo backend",
+  "Bases de datos",
+  "Diseño UX/UI",
+  "Análisis de datos",
+  "Gestión de proyecto",
+  "Pruebas y calidad",
+  "Documentación",
+  "Investigación",
+];
