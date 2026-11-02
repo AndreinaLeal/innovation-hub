@@ -92,7 +92,7 @@
 .hero-inicio {
   position: relative;
   overflow: hidden;
-  padding: 5.5rem 0;
+  padding: 3.5rem 0;
   background:
     radial-gradient(
       circle at 85% 20%,
@@ -120,7 +120,7 @@
   max-width: 680px;
   margin-bottom: 1.5rem;
   color: var(--inicio-texto);
-  font-size: clamp(2.5rem, 5vw, 4.6rem);
+  font-size: clamp(2.2rem, 10vw, 3.3rem);
   font-weight: 750;
   line-height: 1.05;
   letter-spacing: -0.04em;
@@ -133,7 +133,7 @@
 .hero-descripcion {
   max-width: 650px;
   color: var(--inicio-texto-secundario);
-  font-size: 1.12rem;
+  font-size: 1rem;
   line-height: 1.75;
 }
 
@@ -182,6 +182,7 @@
   margin: 2.5rem 0 0;
   padding: 0;
   list-style: none;
+  flex-direction: column;
 }
 
 .hero-beneficios li {
@@ -225,19 +226,20 @@
 
 .hero-visual {
   position: relative;
-  min-height: 470px;
+  min-height: auto;
+  margin-top: 2rem;
 }
 
 .panel-colaboracion {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  position: relative;
+  top: auto;
+  left: auto;
   z-index: 2;
 
-  width: min(100%, 410px);
-  padding: 2.25rem;
+  width: 100%;
+  padding: 1.5rem;
 
-  transform: translate(-50%, -50%);
+  transform: none;
 
   border: 1px solid rgba(226, 232, 240, 0.9);
   border-radius: var(--inicio-radio-grande);
@@ -293,6 +295,7 @@
 .hero-circulo {
   position: absolute;
   border-radius: 50%;
+  display: none;
 }
 
 .hero-circulo-uno {
@@ -320,7 +323,7 @@
   position: absolute;
   z-index: 3;
 
-  display: flex;
+  display: none;
   align-items: center;
   gap: 0.8rem;
 
@@ -361,20 +364,8 @@
   font-weight: 700;
 }
 
-.tarjeta-idea {
-  top: 25px;
-  left: 0;
-}
 
-.tarjeta-necesidad {
-  top: 185px;
-  right: -10px;
-}
 
-.tarjeta-reto {
-  bottom: 15px;
-  left: 30px;
-}
 
 
 /* =========================================================
@@ -383,7 +374,7 @@
 
 .encabezado-seccion {
   max-width: 700px;
-  margin: 0 auto 3rem;
+  margin: 0 auto 2rem;
   text-align: center;
 }
 
@@ -408,12 +399,12 @@
    ========================================================= */
 
 .seccion-funcionamiento {
-  padding: 5.5rem 0;
+  padding: 4rem 0;
   background: white;
 }
 
 .paso-card {
-  padding: 2rem;
+  padding: 1.5rem;
 
   border: 1px solid var(--inicio-borde);
   border-radius: var(--inicio-radio);
@@ -486,7 +477,7 @@
    ========================================================= */
 
 .seccion-tipos {
-  padding: 5.5rem 0;
+  padding: 4rem 0;
   border-top: 1px solid var(--inicio-borde);
   border-bottom: 1px solid var(--inicio-borde);
   background: var(--inicio-fondo);
@@ -509,7 +500,7 @@
 }
 
 .tipo-card {
-  padding: 1.75rem;
+  padding: 1.5rem;
 
   border: 1px solid var(--inicio-borde);
   border-radius: var(--inicio-radio);
@@ -563,22 +554,23 @@
    ========================================================= */
 
 .seccion-cta {
-  padding: 5rem 0;
+  padding: 4rem 0;
   background: white;
 }
 
 .cta-contenido {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 2rem;
 
-  padding: 2.75rem;
+  padding: 2rem;
 
   border: 1px solid var(--inicio-borde);
   border-radius: var(--inicio-radio-grande);
 
   background: var(--inicio-azul-suave);
+  flex-direction: column;
 }
 
 .cta-contenido p {
@@ -599,9 +591,10 @@
 
 .footer-contenido {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 2rem;
+  flex-direction: column;
 }
 
 .footer-principal strong {
@@ -632,115 +625,58 @@
    RESPONSIVE
    ========================================================= */
 
-@media (max-width: 991.98px) {
+.cta-contenido .btn { width: 100%; }
+.hero-inicio .btn { width: 100%; }
 
-  .hero-inicio {
-    padding: 4rem 0;
-  }
+/* =========================================================
+   MOBILE-FIRST
+   Los estilos de arriba son los del celular. Cada bloque siguiente
+   agrega ajustes al ENSANCHAR la pantalla (min-width), nunca al reducirla.
+   ========================================================= */
 
-  .hero-visual {
-    min-height: 500px;
-    margin-top: 1rem;
-  }
-
-  .tarjeta-idea {
-    left: 5%;
-  }
-
-  .tarjeta-necesidad {
-    right: 5%;
-  }
-
-  .tarjeta-reto {
-    left: 10%;
-  }
-
-  .cta-contenido {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .footer-contenido {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+@media (min-width: 576px) {
+  .hero-inicio .btn { width: auto; }
+  .panel-colaboracion { padding: 2.25rem; }
+  .paso-card { padding: 2rem; }
+  .tipo-card { padding: 1.75rem; }
+  .encabezado-seccion { margin-bottom: 3rem; }
 }
 
-
-@media (max-width: 767.98px) {
-
-  .hero-inicio {
-    padding: 3.5rem 0;
-  }
-
-  .hero-titulo {
-    font-size: clamp(2.2rem, 10vw, 3.3rem);
-  }
-
-  .hero-descripcion {
-    font-size: 1rem;
-  }
-
-  .hero-beneficios {
-    flex-direction: column;
-  }
-
-  .hero-visual {
-    min-height: auto;
-    margin-top: 2rem;
-  }
+@media (min-width: 768px) {
+  .hero-inicio { padding: 4rem 0; }
+  .hero-titulo { font-size: clamp(2.5rem, 5vw, 4.6rem); }
+  .hero-descripcion { font-size: 1.12rem; }
+  .hero-beneficios { flex-direction: row; }
+  .hero-visual { min-height: 500px; margin-top: 1rem; }
 
   .panel-colaboracion {
-    position: relative;
-    top: auto;
-    left: auto;
-
-    width: 100%;
-
-    transform: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(100%, 410px);
+    transform: translate(-50%, -50%);
   }
+  .hero-circulo { display: block; }
+  .tarjeta-flotante { display: flex; }
+  .tarjeta-idea { top: 25px; left: 5%; }
+  .tarjeta-necesidad { top: 185px; right: 5%; }
+  .tarjeta-reto { bottom: 15px; left: 10%; }
 
-  .hero-circulo,
-  .tarjeta-flotante {
-    display: none;
-  }
-
-  .seccion-funcionamiento,
-  .seccion-tipos,
-  .seccion-cta {
-    padding: 4rem 0;
-  }
-
-  .cta-contenido {
-    padding: 2rem;
-  }
-
-  .cta-contenido .btn {
-    width: 100%;
-  }
+  .seccion-funcionamiento, .seccion-tipos { padding: 5.5rem 0; }
+  .seccion-cta { padding: 5rem 0; }
+  .cta-contenido { padding: 2.75rem; }
+  .cta-contenido .btn { width: auto; }
 }
 
-
-@media (max-width: 575.98px) {
-
-  .hero-inicio .btn {
-    width: 100%;
-  }
-
-  .panel-colaboracion {
-    padding: 1.5rem;
-  }
-
-  .paso-card,
-  .tipo-card {
-    padding: 1.5rem;
-  }
-
-  .encabezado-seccion {
-    margin-bottom: 2rem;
-  }
+@media (min-width: 992px) {
+  .hero-inicio { padding: 5.5rem 0; }
+  .hero-visual { min-height: 470px; margin-top: 0; }
+  .tarjeta-idea { left: 0; }
+  .tarjeta-necesidad { right: -10px; }
+  .tarjeta-reto { left: 30px; }
+  .cta-contenido { flex-direction: row; align-items: center; }
+  .footer-contenido { flex-direction: row; align-items: center; }
 }
-
 
 /* =========================================================
    REDUCIR MOVIMIENTO
