@@ -4,43 +4,43 @@ Innovation Hub API (entrega 2)
 
 □ 0. Salud
 └ Health
-  GET http://localhost:4000/api/health [200 OK, 273B, 33ms]
+  GET http://localhost:4000/api/health [200 OK, 273B, 30ms]
   √  Estado 200
 
 □ 1. Autenticación
 └ Registro correcto
-  POST http://localhost:4000/api/auth/register [201 Created, 545B, 93ms]
+  POST http://localhost:4000/api/auth/register [201 Created, 545B, 95ms]
   √  Estado 201
 
 └ Registro con datos inválidos
-  POST http://localhost:4000/api/auth/register [400 Bad Request, 591B, 3ms]
+  POST http://localhost:4000/api/auth/register [400 Bad Request, 591B, 5ms]
   √  Estado 400
   √  Formato de error uniforme
 
 └ Registro con correo repetido
-  POST http://localhost:4000/api/auth/register [409 Conflict, 346B, 7ms]
+  POST http://localhost:4000/api/auth/register [409 Conflict, 346B, 8ms]
   √  Estado 409
   √  Formato de error uniforme
 
 └ Login correcto (propietario)
-  POST http://localhost:4000/api/auth/login [200 OK, 574B, 96ms]
+  POST http://localhost:4000/api/auth/login [200 OK, 568B, 83ms]
   √  Estado 200
 
 └ Guardar id del propietario
-  GET http://localhost:4000/api/auth/me [200 OK, 489B, 7ms]
+  GET http://localhost:4000/api/auth/me [200 OK, 483B, 8ms]
   √  Estado 200
 
 └ Login correcto (otra persona)
-  POST http://localhost:4000/api/auth/login [200 OK, 613B, 94ms]
+  POST http://localhost:4000/api/auth/login [200 OK, 613B, 100ms]
   √  Estado 200
 
 └ Login con contraseña incorrecta
-  POST http://localhost:4000/api/auth/login [401 Unauthorized, 348B, 90ms]
+  POST http://localhost:4000/api/auth/login [401 Unauthorized, 348B, 91ms]
   √  Estado 401
   √  Formato de error uniforme
 
 └ Perfil propio (me)
-  GET http://localhost:4000/api/auth/me [200 OK, 489B, 9ms]
+  GET http://localhost:4000/api/auth/me [200 OK, 483B, 10ms]
   √  Estado 200
 
 └ Me sin sesión
@@ -50,43 +50,43 @@ Innovation Hub API (entrega 2)
 
 □ 2. Usuarios y competencias
 └ Buscar usuarios por competencia y disponibilidad
-  GET http://localhost:4000/api/users?skill=SQL&page=1&size=5 [200 OK, 661B, 17ms]
+  GET http://localhost:4000/api/users?skill=SQL&page=1&size=5 [200 OK, 507B, 21ms]
   √  Estado 200
 
 └ Buscar usuarios con disponibilidad inexistente (vacío)
-  GET http://localhost:4000/api/users?availability=nunca [200 OK, 314B, 11ms]
+  GET http://localhost:4000/api/users?availability=nunca [200 OK, 314B, 10ms]
   √  Estado 200
 
 └ Usuario inexistente
-  GET http://localhost:4000/api/users/000000000000000000000000 [404 Not Found, 330B, 13ms]
+  GET http://localhost:4000/api/users/000000000000000000000000 [404 Not Found, 330B, 12ms]
   √  Estado 404
   √  Formato de error uniforme
 
 └ Buscar usuarios sin sesión
-  GET http://localhost:4000/api/users [401 Unauthorized, 364B, 3ms]
+  GET http://localhost:4000/api/users [401 Unauthorized, 364B, 4ms]
   √  Estado 401
   √  Formato de error uniforme
 
 └ Actualizar perfil correcto
-  PUT http://localhost:4000/api/users/me [200 OK, 489B, 20ms]
+  PUT http://localhost:4000/api/users/me [200 OK, 489B, 25ms]
   √  Estado 200
 
 └ Actualizar perfil: intentar cambiar el correo
-  PUT http://localhost:4000/api/users/me [400 Bad Request, 429B, 11ms]
+  PUT http://localhost:4000/api/users/me [400 Bad Request, 429B, 13ms]
   √  Estado 400
   √  Formato de error uniforme
 
 └ Competencias (sugerencias)
-  GET http://localhost:4000/api/skills?q=sql [200 OK, 275B, 6ms]
+  GET http://localhost:4000/api/skills?q=sql [200 OK, 275B, 9ms]
   √  Estado 200
 
 □ 3. Iniciativas
 └ Crear iniciativa correcta
-  POST http://localhost:4000/api/initiatives [201 Created, 1.04kB, 28ms]
+  POST http://localhost:4000/api/initiatives [201 Created, 1.04kB, 22ms]
   √  Estado 201
 
 └ Crear iniciativa con datos inválidos
-  POST http://localhost:4000/api/initiatives [400 Bad Request, 931B, 12ms]
+  POST http://localhost:4000/api/initiatives [400 Bad Request, 931B, 7ms]
   √  Estado 400
   √  Formato de error uniforme
 
@@ -96,7 +96,7 @@ Innovation Hub API (entrega 2)
   √  Formato de error uniforme
 
 └ Listar con filtros y paginación
-  GET http://localhost:4000/api/initiatives?type=idea&q=mentor&sort=title&page=1&size=5 [200 OK, 756B, 10ms]
+  GET http://localhost:4000/api/initiatives?type=idea&q=mentor&sort=title&page=1&size=5 [200 OK, 756B, 7ms]
   √  Estado 200
 
 └ Listar con filtro inválido
@@ -105,157 +105,157 @@ Innovation Hub API (entrega 2)
   √  Formato de error uniforme
 
 └ Detalle correcto (pública, sin sesión)
-  GET http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209 [200 OK, 1.03kB, 11ms]
+  GET http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c [200 OK, 1.03kB, 13ms]
   √  Estado 200
 
 └ Detalle inexistente
-  GET http://localhost:4000/api/initiatives/000000000000000000000000 [404 Not Found, 333B, 6ms]
+  GET http://localhost:4000/api/initiatives/000000000000000000000000 [404 Not Found, 333B, 7ms]
   √  Estado 404
   √  Formato de error uniforme
 
 └ Detalle con id mal formado
-  GET http://localhost:4000/api/initiatives/abc [404 Not Found, 330B, 3ms]
+  GET http://localhost:4000/api/initiatives/abc [404 Not Found, 330B, 4ms]
   √  Estado 404
   √  Formato de error uniforme
 
 └ Modificar correcto (propietario)
-  PUT http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209 [200 OK, 1.03kB, 34ms]
+  PUT http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c [200 OK, 1.03kB, 21ms]
   √  Estado 200
 
 └ Modificar con datos inválidos
-  PUT http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209 [400 Bad Request, 444B, 17ms]
+  PUT http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c [400 Bad Request, 444B, 16ms]
   √  Estado 400
   √  Formato de error uniforme
 
 └ Modificar iniciativa ajena
-  PUT http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209 [403 Forbidden, 375B, 19ms]
+  PUT http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c [403 Forbidden, 375B, 19ms]
   √  Estado 403
   √  Formato de error uniforme
 
 └ Modificar sin sesión
-  PUT http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209 [401 Unauthorized, 364B, 4ms]
+  PUT http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c [401 Unauthorized, 364B, 2ms]
   √  Estado 401
   √  Formato de error uniforme
 
 └ Modificar inexistente
-  PUT http://localhost:4000/api/initiatives/000000000000000000000000 [404 Not Found, 333B, 13ms]
+  PUT http://localhost:4000/api/initiatives/000000000000000000000000 [404 Not Found, 333B, 7ms]
   √  Estado 404
   √  Formato de error uniforme
 
 └ Crear iniciativa privada
-  POST http://localhost:4000/api/initiatives [201 Created, 1.04kB, 23ms]
+  POST http://localhost:4000/api/initiatives [201 Created, 1.04kB, 19ms]
   √  Estado 201
 
 └ Detalle de iniciativa privada ajena (se oculta)
-  GET http://localhost:4000/api/initiatives/6ae8ef74b2ed565ead006241 [404 Not Found, 333B, 18ms]
+  GET http://localhost:4000/api/initiatives/6ae8f019b2ed565ead006384 [404 Not Found, 333B, 9ms]
   √  Estado 404
   √  Formato de error uniforme
 
 □ 4. Solicitudes y equipos
 └ Crear solicitud correcta
-  POST http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209/requests [201 Created, 753B, 28ms]
+  POST http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c/requests [201 Created, 753B, 14ms]
   √  Estado 201
 
 └ Crear solicitud con datos inválidos
-  POST http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209/requests [400 Bad Request, 658B, 19ms]
+  POST http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c/requests [400 Bad Request, 658B, 14ms]
   √  Estado 400
   √  Formato de error uniforme
 
 └ Crear solicitud duplicada (RN-05)
-  POST http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209/requests [409 Conflict, 372B, 21ms]
+  POST http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c/requests [409 Conflict, 372B, 21ms]
   √  Estado 409
   √  Formato de error uniforme
 
 └ Crear solicitud a iniciativa inexistente
-  POST http://localhost:4000/api/initiatives/000000000000000000000000/requests [404 Not Found, 333B, 13ms]
+  POST http://localhost:4000/api/initiatives/000000000000000000000000/requests [404 Not Found, 333B, 9ms]
   √  Estado 404
   √  Formato de error uniforme
 
 └ Crear solicitud sin sesión
-  POST http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209/requests [401 Unauthorized, 364B, 4ms]
+  POST http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c/requests [401 Unauthorized, 364B, 2ms]
   √  Estado 401
   √  Formato de error uniforme
 
 └ Mis solicitudes
-  GET http://localhost:4000/api/requests/mine?status=pendiente [200 OK, 1.34kB, 18ms]
+  GET http://localhost:4000/api/requests/mine?status=pendiente [200 OK, 1.34kB, 12ms]
   √  Estado 200
 
 └ Modificar solicitud pendiente
-  PUT http://localhost:4000/api/requests/6ae8ef74b2ed565ead006256 [200 OK, 758B, 25ms]
+  PUT http://localhost:4000/api/requests/6ae8f019b2ed565ead006399 [200 OK, 758B, 18ms]
   √  Estado 200
 
 └ Aceptar siendo quien solicita (403)
-  POST http://localhost:4000/api/requests/6ae8ef74b2ed565ead006256/accept [403 Forbidden, 375B, 12ms]
+  POST http://localhost:4000/api/requests/6ae8f019b2ed565ead006399/accept [403 Forbidden, 375B, 12ms]
   √  Estado 403
   √  Formato de error uniforme
 
 └ Solicitudes recibidas
-  GET http://localhost:4000/api/requests/received?status=pendiente [200 OK, 1.35kB, 13ms]
+  GET http://localhost:4000/api/requests/received?status=pendiente [200 OK, 1.35kB, 11ms]
   √  Estado 200
 
 └ Solicitudes de la iniciativa (no propietario)
-  GET http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209/requests [403 Forbidden, 375B, 17ms]
+  GET http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c/requests [403 Forbidden, 375B, 8ms]
   √  Estado 403
   √  Formato de error uniforme
 
 └ Aceptar solicitud (RN-07/RN-08)
-  POST http://localhost:4000/api/requests/6ae8ef74b2ed565ead006256/accept [200 OK, 779B, 24ms]
+  POST http://localhost:4000/api/requests/6ae8f019b2ed565ead006399/accept [200 OK, 779B, 13ms]
   √  Estado 200
 
 └ Aceptar de nuevo (ya resuelta)
-  POST http://localhost:4000/api/requests/6ae8ef74b2ed565ead006256/accept [409 Conflict, 349B, 14ms]
+  POST http://localhost:4000/api/requests/6ae8f019b2ed565ead006399/accept [409 Conflict, 349B, 9ms]
   √  Estado 409
   √  Formato de error uniforme
 
 └ Cancelar solicitud inexistente
-  POST http://localhost:4000/api/requests/000000000000000000000000/cancel [404 Not Found, 332B, 12ms]
+  POST http://localhost:4000/api/requests/000000000000000000000000/cancel [404 Not Found, 332B, 7ms]
   √  Estado 404
   √  Formato de error uniforme
 
 └ Ver equipo
-  GET http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209/members [200 OK, 509B, 10ms]
+  GET http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c/members [200 OK, 509B, 9ms]
   √  Estado 200
 
 └ Retirar al propietario (409)
-  DELETE http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209/members/6ae8eef9581be8df8fc21243 [409 Conflict, 362B, 18ms]
+  DELETE http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c/members/6ae8ef83ebb24b093fc42606 [409 Conflict, 362B, 8ms]
   √  Estado 409
   √  Formato de error uniforme
 
 └ Retirar miembro sin ser propietario
-  DELETE http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209/members/6ae8eef9581be8df8fc21243 [403 Forbidden, 375B, 14ms]
+  DELETE http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c/members/6ae8ef83ebb24b093fc42606 [403 Forbidden, 375B, 11ms]
   √  Estado 403
   √  Formato de error uniforme
 
 □ 5. Proyectos
 └ Convertir sin ser propietario
-  POST http://localhost:4000/api/projects [403 Forbidden, 375B, 18ms]
+  POST http://localhost:4000/api/projects [403 Forbidden, 375B, 21ms]
   √  Estado 403
   √  Formato de error uniforme
 
 └ Convertir con datos inválidos
-  POST http://localhost:4000/api/projects [400 Bad Request, 657B, 11ms]
+  POST http://localhost:4000/api/projects [400 Bad Request, 657B, 10ms]
   √  Estado 400
   √  Formato de error uniforme
 
 └ Convertir correcto (RN-09 cumplida)
-  POST http://localhost:4000/api/projects [201 Created, 971B, 43ms]
+  POST http://localhost:4000/api/projects [201 Created, 971B, 25ms]
   √  Estado 201
 
 └ Convertir de nuevo (409)
-  POST http://localhost:4000/api/projects [409 Conflict, 359B, 21ms]
+  POST http://localhost:4000/api/projects [409 Conflict, 359B, 17ms]
   √  Estado 409
   √  Formato de error uniforme
 
 └ Listar proyectos
-  GET http://localhost:4000/api/projects?page=1&size=5 [200 OK, 1.36kB, 25ms]
+  GET http://localhost:4000/api/projects?page=1&size=5 [200 OK, 1.36kB, 27ms]
   √  Estado 200
 
 └ Detalle de proyecto
-  GET http://localhost:4000/api/projects/6ae8ef76b2ed565ead0062d0 [200 OK, 966B, 22ms]
+  GET http://localhost:4000/api/projects/6ae8f01bb2ed565ead006413 [200 OK, 966B, 13ms]
   √  Estado 200
 
 └ Proyecto inexistente
-  GET http://localhost:4000/api/projects/000000000000000000000000 [404 Not Found, 331B, 12ms]
+  GET http://localhost:4000/api/projects/000000000000000000000000 [404 Not Found, 331B, 8ms]
   √  Estado 404
   √  Formato de error uniforme
 
@@ -266,49 +266,49 @@ Innovation Hub API (entrega 2)
 
 □ 6. Cierre
 └ Eliminar iniciativa ajena
-  DELETE http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209 [403 Forbidden, 375B, 17ms]
+  DELETE http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c [403 Forbidden, 375B, 12ms]
   √  Estado 403
   √  Formato de error uniforme
 
 └ Archivar iniciativa con equipo (RN-10)
-  DELETE http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209 [204 No Content, 158B, 19ms]
+  DELETE http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c [204 No Content, 158B, 12ms]
   √  Estado 204
 
 └ Iniciativa archivada: ya no visible para otros
-  GET http://localhost:4000/api/initiatives/6ae8ef73b2ed565ead006209 [404 Not Found, 333B, 18ms]
+  GET http://localhost:4000/api/initiatives/6ae8f018b2ed565ead00634c [404 Not Found, 333B, 25ms]
   √  Estado 404
   √  Formato de error uniforme
 
 └ Eliminar inexistente
-  DELETE http://localhost:4000/api/initiatives/000000000000000000000000 [404 Not Found, 333B, 15ms]
+  DELETE http://localhost:4000/api/initiatives/000000000000000000000000 [404 Not Found, 333B, 11ms]
   √  Estado 404
   √  Formato de error uniforme
 
 └ Cerrar sesión
-  POST http://localhost:4000/api/auth/logout [204 No Content, 158B, 8ms]
+  POST http://localhost:4000/api/auth/logout [204 No Content, 158B, 9ms]
   √  Estado 204
 
 └ Token cerrado ya no sirve
-  GET http://localhost:4000/api/auth/me [401 Unauthorized, 364B, 5ms]
+  GET http://localhost:4000/api/auth/me [401 Unauthorized, 364B, 4ms]
   √  Estado 401
   √  Formato de error uniforme
 
-┌─────────────────────────┬──────────────────┬──────────────────┐
-│                         │         executed │           failed │
-├─────────────────────────┼──────────────────┼──────────────────┤
-│              iterations │                1 │                0 │
-├─────────────────────────┼──────────────────┼──────────────────┤
-│                requests │               62 │                0 │
-├─────────────────────────┼──────────────────┼──────────────────┤
-│            test-scripts │               62 │                0 │
-├─────────────────────────┼──────────────────┼──────────────────┤
-│      prerequest-scripts │               62 │                0 │
-├─────────────────────────┼──────────────────┼──────────────────┤
-│              assertions │               98 │                0 │
-├─────────────────────────┴──────────────────┴──────────────────┤
-│ total run duration: 6.3s                                      │
-├───────────────────────────────────────────────────────────────┤
-│ total data received: 16.88kB (approx)                         │
-├───────────────────────────────────────────────────────────────┤
-│ average response time: 19ms [min: 2ms, max: 96ms, s.d.: 21ms] │
-└───────────────────────────────────────────────────────────────┘
+┌─────────────────────────┬───────────────────┬──────────────────┐
+│                         │          executed │           failed │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              iterations │                 1 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│                requests │                62 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│            test-scripts │                62 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│      prerequest-scripts │                62 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              assertions │                98 │                0 │
+├─────────────────────────┴───────────────────┴──────────────────┤
+│ total run duration: 6.1s                                       │
+├────────────────────────────────────────────────────────────────┤
+│ total data received: 16.71kB (approx)                          │
+├────────────────────────────────────────────────────────────────┤
+│ average response time: 17ms [min: 2ms, max: 100ms, s.d.: 20ms] │
+└────────────────────────────────────────────────────────────────┘
