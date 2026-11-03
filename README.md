@@ -1,4 +1,4 @@
-# Innovation Hub
+﻿# Innovation Hub
 
 Proyecto del curso SOFT-12 — Programación web avanzada.
 
@@ -149,30 +149,37 @@ Importa `pruebas/innovation-hub.postman_collection.json` en Postman (o Thunder C
 - **Seguridad:** contraseñas con bcrypt y nunca devueltas; sesiones con token opaco guardado como hash en MongoDB; CORS limitado al origen del cliente; validación repetida en el servidor; errores genéricos sin trazas; verificación de propiedad y visibilidad en cada petición.
 - **Interfaz:** componentes por dominio, estado inmutable, formularios controlados, `useFetch` con `AbortController` y estados explícitos de carga, error y vacío en cada pantalla.
 
-## Resumen de commits
+## Resumen de commits del Avance 1
 
-| Fecha | Hash | Mensaje |
-|---|---|---|
-| 2026-09-26 | c6258e8 | agrega perfil proyectos y completa navegacion del prototipo |
-| 2026-09-16 | ebe51c1 | Add Tatiana Solis to student list |
-| 2026-09-16 | 85e128a | Agrega validacion al formulario de solicitud |
-| 2026-09-16 | 61902eb | Agrega competencias dinamicas y validacion en publicar iniciativa |
-| 2026-09-16 | 382e2b7 | Agrega renderizado dinamico del detalle con visibilidad y eliminacion |
-| 2026-09-16 | 9bbc052 | Actualiza datos con visibilidad y descripcion, y enlaza detalle por id |
-| 2026-09-10 | 52f0641 | Agrega carga de datos y renderizado dinamico del catalogo |
-| 2026-09-10 | 2525473 | Crea el formulario de publicar iniciativa en Bootstrap |
-| 2026-09-10 | ea99b7c | Convierte el detalle de iniciativa a Bootstrap |
-| 2026-09-10 | 50f2b28 | Convierte el catalogo a Bootstrap |
-| 2026-09-10 | 0510b6f | Renombra paginas para coincidir con los enlaces del catalogo |
-| 2026-09-09 | 76a6366 | Agrega formulario de solicitud de participacion |
-| 2026-09-08 | 25a4561 | Agrega página de detalle de iniciativa |
-| 2026-09-07 | 6c74fe6 | Completar la estructura semantica del catalogo |
-| 2026-09-07 | 160e80f | Agregar las tarjetas de resultados del catalogo |
-| 2026-09-07 | 02a0108 | Agregar el main con h1 y el panel de filtros del catalogo |
-| 2026-09-07 | adf0472 | Maquetar el encabezado y la navegacion del catalogo |
-| 2026-09-06 | 49bc187 | Agregar tabla de resumen de commits al README |
-| 2026-09-06 | 452e4db | Merge branch main of innovation-hub |
-| 2026-09-06 | 086c9d0 | Crear estructura del avance 1 y documentacion inicial |
-| 2026-09-06 | e002bac | Initialize README with project information |
-| 2026-09-06 | 3900e20 | Delete README.md |
-| 2026-09-06 | d21a70a | Initial commit |
+Tabla verificada contra el historial real hasta la etiqueta `entrega-1` (25 commits en 8 días distintos: 6, 7, 8, 9, 10, 16, 26 y 27 de setiembre de 2026).
+
+| N.º | Fecha | Commit | Mensaje | Sección del sistema | Cambio principal |
+|---:|---|---|---|---|---|
+| 1 | 2026-09-06 | `d21a70a` | Initial commit | Repositorio | Crea el repositorio con un README inicial. |
+| 2 | 2026-09-06 | `3900e20` | Delete README.md | Documentación | Elimina el README inicial para rehacerlo. |
+| 3 | 2026-09-06 | `e002bac` | Initialize README with project information | Documentación | Agrega al README los datos del proyecto. |
+| 4 | 2026-09-06 | `086c9d0` | Crear estructura del avance 1 y documentacion inicial | Estructura del proyecto | Crea .gitignore, carpetas de avance1, JSON de datos, index.html, app.js y las primeras variables de Sass. |
+| 5 | 2026-09-06 | `452e4db` | Merge branch 'main' of innovation-hub | Repositorio | Une la rama main remota con el trabajo local. |
+| 6 | 2026-09-06 | `49bc187` | Agregar tabla de resumen de commits al README | Documentación | Agrega al README la tabla de resumen de commits. |
+| 7 | 2026-09-07 | `adf0472` | Maquetar el encabezado y la navegacion del catalogo | Catálogo | Maqueta el encabezado y la navegación de catalogo.html. |
+| 8 | 2026-09-07 | `02a0108` | Agregar el main con h1 y el panel de filtros del catalogo | Catálogo | Agrega el contenido principal con h1 y el panel de filtros. |
+| 9 | 2026-09-07 | `160e80f` | Agregar las tarjetas de resultados del catalogo | Catálogo | Agrega las tarjetas de resultados. |
+| 10 | 2026-09-07 | `6c74fe6` | Completar la estructura semantica del catalogo | Catálogo | Completa la estructura semántica de la página. |
+| 11 | 2026-09-08 | `25a4561` | Agrega pagina de detalle de iniciativa | Detalle de iniciativa | Crea la página de detalle con sus estilos. |
+| 12 | 2026-09-09 | `76a6366` | Agrega formulario de solicitud de participacion | Solicitud de participación | Crea el formulario de solicitud y sus estilos. |
+| 13 | 2026-09-10 | `0510b6f` | Renombra paginas para coincidir con los enlaces del catalogo | Estructura y Sass | Renombra detalle.html y solicitudes.html, y agrega styles.scss y package.json. |
+| 14 | 2026-09-10 | `50f2b28` | Convierte el catalogo a Bootstrap | Catálogo | Migra el catálogo a la grilla y los componentes de Bootstrap. |
+| 15 | 2026-09-10 | `ea99b7c` | Convierte el detalle de iniciativa a Bootstrap | Detalle de iniciativa | Migra el detalle a Bootstrap. |
+| 16 | 2026-09-10 | `2525473` | Crea el formulario de publicar iniciativa en Bootstrap | Registro de iniciativa | Crea publicar.html con el formulario en Bootstrap. |
+| 17 | 2026-09-10 | `52f0641` | Agrega carga de datos y renderizado dinamico del catalogo | Catálogo | Carga las iniciativas desde JSON y genera las tarjetas con JavaScript. |
+| 18 | 2026-09-16 | `9bbc052` | Actualiza datos con visibilidad y descripcion, y enlaza detalle por id | Datos y catálogo | Agrega visibilidad y descripción a los datos y enlaza cada tarjeta al detalle por id. |
+| 19 | 2026-09-16 | `382e2b7` | Agrega renderizado dinamico del detalle con visibilidad y eliminacion | Detalle de iniciativa | Genera el detalle desde los datos, aplica la visibilidad y agrega la eliminación. |
+| 20 | 2026-09-16 | `61902eb` | Agrega competencias dinamicas y validacion en publicar iniciativa | Registro de iniciativa | Agrega competencias dinámicas y validación con JavaScript. |
+| 21 | 2026-09-16 | `85e128a` | Agrega validacion al formulario de solicitud | Solicitud de participación | Valida el formulario de solicitud con mensajes por campo. |
+| 22 | 2026-09-16 | `ebe51c1` | Add Tatiana Solis to student list | Documentación | Agrega a Tatiana Solís a la lista de integrantes del README. |
+| 23 | 2026-09-26 | `c6258e8` | agrega perfil proyectos y completa navegacion del prototipo | Perfil, proyectos e inicio | Agrega las páginas de perfil y proyectos, el CSS de inicio, las categorías en JSON y completa la navegación. |
+| 24 | 2026-09-26 | `ff2f78d` | actualiza documentacion del avance 1 | Documentación | Actualiza el README del avance 1. |
+| 25 | 2026-09-27 | `64cc60f` | Corrige categorias, agrega persistencia real a publicar/editar y segundo parcial de Sass | Iniciativas y Sass | Corrige categorías, guarda y edita iniciativas en localStorage y agrega el parcial _componentes.scss. |
+
+
+
