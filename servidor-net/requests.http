@@ -1,0 +1,30 @@
+# Peticiones de prueba para la extension REST Client de VS Code.
+# Con el servidor en marcha: dotnet run --launch-profile http
+
+@net = http://localhost:5257
+@express = http://localhost:4000
+
+### 1. Catalogo desde .NET  ->  200 { data, page, size, total, totalPages }
+# Sin sesion solo aparecen las iniciativas publicas: con los datos de siembra, 1 resultado
+GET {{net}}/api/initiatives
+
+### 2. Paginacion  ->  200, size=1 y page=1
+GET {{net}}/api/initiatives?page=1&size=1
+
+### 3. Valores fuera de rango se corrigen (page=0 -> 1, size=999 -> 50)  ->  200
+GET {{net}}/api/initiatives?page=0&size=999
+
+### 4. Equipo de la iniciativa 1 (publica)  ->  200 { data: [propietario, miembro, miembro] }
+GET {{net}}/api/initiatives/1/members
+
+### 5. Iniciativa institucional sin sesion  ->  401 UNAUTHORIZED
+GET {{net}}/api/initiatives/2/members
+
+### 6. Iniciativa privada (no revela su existencia)  ->  404 NOT_FOUND
+GET {{net}}/api/initiatives/4/members
+
+### 7. Id mal formado  ->  404 NOT_FOUND
+GET {{net}}/api/initiatives/abc/members
+
+### 8. Comparacion con Express (los ids de Mongo son distintos, el resto de la forma debe coincidir)
+GET {{express}}/api/initiatives
