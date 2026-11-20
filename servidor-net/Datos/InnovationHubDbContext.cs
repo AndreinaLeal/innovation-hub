@@ -10,6 +10,8 @@ public class InnovationHubDbContext(DbContextOptions<InnovationHubDbContext> opc
     public DbSet<Initiative> Initiatives => Set<Initiative>();
     public DbSet<InitiativeMember> InitiativeMembers => Set<InitiativeMember>();
     public DbSet<InitiativeTag> InitiativeTags => Set<InitiativeTag>();
+    public DbSet<Request> Requests => Set<Request>();
+    public DbSet<Project> Projects => Set<Project>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -113,6 +115,63 @@ public class InnovationHubDbContext(DbContextOptions<InnovationHubDbContext> opc
                 .HasForeignKey(x => x.InitiativeId).OnDelete(DeleteBehavior.Cascade);
             m.HasOne(x => x.User).WithMany(u => u.Memberships)
                 .HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // ---------- requests ----------
+        modelBuilder.Entity<Request>(r =>
+        {
+            r.Property(x => x.Message).HasMaxLength(600).IsRequired();
+            r.Property(x => x.MainSkill).HasMaxLength(60).IsRequired();
+            r.Property(x => x.DesiredRole).HasMaxLength(80).IsRequired();
+            r.Property(x => x.Availability).HasMaxLength(5).IsRequired();
+            r.Property(x => x.Status).HasMaxLength(10).IsRequired();
+            r.Property(x => x.CreatedAt).HasDefaultValueSql("SYSUTCDATETIME()");
+            r.Property(x => x.UpdatedAt).HasDefaultValueSql("SYSUTCDATETIME()");
+
+            r.HasIndex(x => x.InitiativeId);
+            r.HasIndex(x => x.ApplicantId);
+
+            // RN-05: una sola solicitud pendiente por persona e iniciativa (indice unico filtrado)
+            r.HasIndex(x => new { x.InitiativeId, x.ApplicantId })
+                .IsUnique()
+                .HasFilter("[Status] = 'pendiente'");
+
+            r.ToTable(t =>
+            {
+                t.HasCheckConstraint("CK_Requests_Status",
+                    "[Status] IN ('pendiente', 'aceptada', 'rechazada', 'cancelada')");
+                t.HasCheckConstraint("CK_Requests_Availability",
+                    "[Availability] IN ('alta', 'media', 'baja')");
+            });
+
+            // Las solicitudes son historial: no se borran en cascada (RN-10 archiva en lugar de eliminar)
+            r.HasOne(x => x.Initiative).WithMany(i => i.Requests)
+                .HasForeignKey(x => x.InitiativeId).OnDelete(DeleteBehavior.Restrict);
+            r.HasOne(x => x.Applicant).WithMany(u => u.Requests)
+                .HasForeignKey(x => x.ApplicantId).OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // ---------- projects ----------
+        modelBuilder.Entity<Project>(p =>
+        {
+            p.Property(x => x.Name).HasMaxLength(120).IsRequired();
+            p.Property(x => x.Description).HasMaxLength(2000).IsRequired();
+            p.Property(x => x.Objective).HasMaxLength(500).IsRequired();
+            p.Property(x => x.Status).HasMaxLength(13).IsRequired();
+            p.Property(x => x.RepositoryUrl).HasMaxLength(200).IsRequired();
+            p.Property(x => x.CreatedAt).HasDefaultValueSql("SYSUTCDATETIME()");
+
+            p.HasIndex(x => x.OwnerId);
+            // RN-09: una iniciativa se convierte como maximo una vez
+            p.HasIndex(x => x.InitiativeId).IsUnique();
+
+            p.ToTable(t => t.HasCheckConstraint("CK_Projects_Status",
+                "[Status] IN ('planificacion', 'activo', 'finalizado')"));
+
+            p.HasOne(x => x.Initiative).WithOne(i => i.Project)
+                .HasForeignKey<Project>(x => x.InitiativeId).OnDelete(DeleteBehavior.Restrict);
+            p.HasOne(x => x.Owner).WithMany(u => u.OwnedProjects)
+                .HasForeignKey(x => x.OwnerId).OnDelete(DeleteBehavior.Restrict);
         });
     }
 }

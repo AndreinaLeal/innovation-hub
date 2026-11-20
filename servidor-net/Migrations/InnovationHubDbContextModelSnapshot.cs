@@ -173,6 +173,136 @@ namespace ServidorNet.Migrations
                     b.ToTable("InitiativeTags");
                 });
 
+            modelBuilder.Entity("ServidorNet.Modelos.Project", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("SYSUTCDATETIME()");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<int>("InitiativeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<string>("Objective")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RepositoryUrl")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InitiativeId")
+                        .IsUnique();
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Projects", t =>
+                        {
+                            t.HasCheckConstraint("CK_Projects_Status", "[Status] IN ('planificacion', 'activo', 'finalizado')");
+                        });
+                });
+
+            modelBuilder.Entity("ServidorNet.Modelos.Request", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ApplicantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Availability")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("SYSUTCDATETIME()");
+
+                    b.Property<string>("DesiredRole")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<int>("InitiativeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MainSkill")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(600)
+                        .HasColumnType("nvarchar(600)");
+
+                    b.Property<DateTime?>("ResolvedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("SYSUTCDATETIME()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicantId");
+
+                    b.HasIndex("InitiativeId");
+
+                    b.HasIndex("InitiativeId", "ApplicantId")
+                        .IsUnique()
+                        .HasFilter("[Status] = 'pendiente'");
+
+                    b.ToTable("Requests", t =>
+                        {
+                            t.HasCheckConstraint("CK_Requests_Availability", "[Availability] IN ('alta', 'media', 'baja')");
+
+                            t.HasCheckConstraint("CK_Requests_Status", "[Status] IN ('pendiente', 'aceptada', 'rechazada', 'cancelada')");
+                        });
+                });
+
             modelBuilder.Entity("ServidorNet.Modelos.Skill", b =>
                 {
                     b.Property<int>("Id")
@@ -330,6 +460,44 @@ namespace ServidorNet.Migrations
                     b.Navigation("Initiative");
                 });
 
+            modelBuilder.Entity("ServidorNet.Modelos.Project", b =>
+                {
+                    b.HasOne("ServidorNet.Modelos.Initiative", "Initiative")
+                        .WithOne("Project")
+                        .HasForeignKey("ServidorNet.Modelos.Project", "InitiativeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ServidorNet.Modelos.User", "Owner")
+                        .WithMany("OwnedProjects")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Initiative");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("ServidorNet.Modelos.Request", b =>
+                {
+                    b.HasOne("ServidorNet.Modelos.User", "Applicant")
+                        .WithMany("Requests")
+                        .HasForeignKey("ApplicantId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ServidorNet.Modelos.Initiative", "Initiative")
+                        .WithMany("Requests")
+                        .HasForeignKey("InitiativeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Applicant");
+
+                    b.Navigation("Initiative");
+                });
+
             modelBuilder.Entity("UserSkills", b =>
                 {
                     b.HasOne("ServidorNet.Modelos.Skill", null)
@@ -349,6 +517,10 @@ namespace ServidorNet.Migrations
                 {
                     b.Navigation("Members");
 
+                    b.Navigation("Project");
+
+                    b.Navigation("Requests");
+
                     b.Navigation("Tags");
                 });
 
@@ -357,6 +529,10 @@ namespace ServidorNet.Migrations
                     b.Navigation("Memberships");
 
                     b.Navigation("OwnedInitiatives");
+
+                    b.Navigation("OwnedProjects");
+
+                    b.Navigation("Requests");
                 });
 #pragma warning restore 612, 618
         }

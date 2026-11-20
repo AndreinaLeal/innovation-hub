@@ -19,4 +19,9 @@ public class User
     public List<Initiative> OwnedInitiatives { get; set; } = [];
     // N:M usuario-iniciativa con datos propios (entidad intermedia)
     public List<InitiativeMember> Memberships { get; set; } = [];
+
+    // 1:N solicitante-solicitudes
+    public List<Request> Requests { get; set; } = [];
+    // 1:N propietario-proyectos
+    public List<Project> OwnedProjects { get; set; } = [];
 }

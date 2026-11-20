@@ -25,4 +25,8 @@ public class Initiative
     public List<InitiativeTag> Tags { get; set; } = [];
     // Equipo: antes members[] embebido, ahora entidad intermedia con rol y fecha
     public List<InitiativeMember> Members { get; set; } = [];
+
+    public List<Request> Requests { get; set; } = [];
+    // 1:1 (opcional): una iniciativa se convierte como maximo en un proyecto
+    public Project? Project { get; set; }
 }
