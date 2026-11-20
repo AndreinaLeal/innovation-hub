@@ -183,3 +183,40 @@ Tabla verificada contra el historial real hasta la etiqueta `entrega-1` (25 comm
 
 
 
+## Servidor .NET (servidor-net) — Tarea 3
+
+Primer paso del servidor de la entrega final: el modelo del Innovation Hub en SQL Server con Entity Framework Core 10. Aún no es la API completa: incluye el modelo, las migraciones, los datos de siembra y dos rutas de lectura (`GET /api/initiatives` y `GET /api/initiatives/{id}/members`).
+
+### Requisitos
+
+- .NET SDK 10.0.404 (lo fija `servidor-net/global.json`)
+- SQL Server (LocalDB, Express o contenedor)
+- Herramienta de EF Core: `dotnet tool install --global dotnet-ef`
+
+### Configurar el secreto de la cadena de conexión
+
+La cadena de conexión **no** está en el repositorio. Se guarda con user-secrets bajo la clave `ConnectionStrings:InnovationHub`:
+
+```bash
+cd servidor-net
+dotnet user-secrets set "ConnectionStrings:InnovationHub" "<su cadena de conexion a SQL Server>"
+```
+
+### Reconstruir la base con las migraciones
+
+```bash
+cd servidor-net
+dotnet ef database drop --force
+dotnet ef database update
+```
+
+Las migraciones (`Inicial`, `SolicitudesYProyectos`, `DatosDeSiembra`) crean las tablas y cargan los datos de prueba.
+
+### Ejecutar y probar
+
+```bash
+dotnet run --launch-profile http     # http://localhost:5257
+```
+
+Las peticiones de prueba están en `servidor-net/requests.http` y las consultas SQL comentadas en `servidor-net/sql/consultas.sql`.
+El modelo relacional está documentado en `docs/modelo-datos.md`.
