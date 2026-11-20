@@ -35,6 +35,48 @@ namespace ServidorNet.Migrations
                     b.HasIndex("SkillId");
 
                     b.ToTable("InitiativeSkills");
+
+                    b.HasData(
+                        new
+                        {
+                            InitiativeId = 1,
+                            SkillId = 1
+                        },
+                        new
+                        {
+                            InitiativeId = 1,
+                            SkillId = 3
+                        },
+                        new
+                        {
+                            InitiativeId = 2,
+                            SkillId = 1
+                        },
+                        new
+                        {
+                            InitiativeId = 2,
+                            SkillId = 5
+                        },
+                        new
+                        {
+                            InitiativeId = 3,
+                            SkillId = 2
+                        },
+                        new
+                        {
+                            InitiativeId = 3,
+                            SkillId = 3
+                        },
+                        new
+                        {
+                            InitiativeId = 3,
+                            SkillId = 4
+                        },
+                        new
+                        {
+                            InitiativeId = 4,
+                            SkillId = 5
+                        });
                 });
 
             modelBuilder.Entity("ServidorNet.Modelos.Initiative", b =>
@@ -129,6 +171,80 @@ namespace ServidorNet.Migrations
 
                             t.HasCheckConstraint("CK_Initiatives_Visibility", "[Visibility] IN ('publica', 'institucional', 'restringida', 'privada')");
                         });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Archived = false,
+                            Beneficiaries = "",
+                            Category = "impacto-social",
+                            CreatedAt = new DateTime(2026, 10, 1, 15, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Plataforma para publicar turnos de voluntariado, asignar participantes y registrar las horas cumplidas.",
+                            OwnerId = 3,
+                            Problem = "",
+                            Status = "en-progreso",
+                            Summary = "Plataforma para organizar turnos de voluntariado y registrar horas.",
+                            TargetMembers = 5,
+                            Title = "Voluntariado Conectado",
+                            Type = "reto",
+                            UpdatedAt = new DateTime(2026, 10, 1, 15, 0, 0, 0, DateTimeKind.Utc),
+                            Visibility = "publica"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Archived = false,
+                            Beneficiaries = "",
+                            Category = "educacion",
+                            CreatedAt = new DateTime(2026, 10, 2, 15, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Repositorio donde estudiantes publican y valoran material de estudio de libre acceso.",
+                            OwnerId = 1,
+                            Problem = "",
+                            Status = "buscando-equipo",
+                            Summary = "Repositorio compartido de material de estudio entre carreras.",
+                            TargetMembers = 4,
+                            Title = "Biblioteca de recursos abiertos",
+                            Type = "idea",
+                            UpdatedAt = new DateTime(2026, 10, 2, 15, 0, 0, 0, DateTimeKind.Utc),
+                            Visibility = "institucional"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Archived = false,
+                            Beneficiaries = "",
+                            Category = "tecnologia",
+                            CreatedAt = new DateTime(2026, 10, 3, 15, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Un panel que reune datos anonimizados del campus para que estudiantes analicen y propongan mejoras.",
+                            OwnerId = 2,
+                            Problem = "",
+                            Status = "buscando-equipo",
+                            Summary = "Panel con datos abiertos del campus para investigacion estudiantil.",
+                            TargetMembers = 6,
+                            Title = "Laboratorio de datos del campus",
+                            Type = "necesidad",
+                            UpdatedAt = new DateTime(2026, 10, 3, 15, 0, 0, 0, DateTimeKind.Utc),
+                            Visibility = "restringida"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Archived = false,
+                            Beneficiaries = "",
+                            Category = "sostenibilidad",
+                            CreatedAt = new DateTime(2026, 10, 4, 15, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Disenar y mantener una huerta en el campus con turnos de cuidado y registro de cosechas.",
+                            OwnerId = 4,
+                            Problem = "",
+                            Status = "buscando-equipo",
+                            Summary = "Huerta comunitaria cuidada por estudiantes de varias carreras.",
+                            TargetMembers = 3,
+                            Title = "Huerta universitaria",
+                            Type = "reto",
+                            UpdatedAt = new DateTime(2026, 10, 4, 15, 0, 0, 0, DateTimeKind.Utc),
+                            Visibility = "privada"
+                        });
                 });
 
             modelBuilder.Entity("ServidorNet.Modelos.InitiativeMember", b =>
@@ -157,6 +273,57 @@ namespace ServidorNet.Migrations
                         {
                             t.HasCheckConstraint("CK_InitiativeMembers_Role", "[Role] IN ('propietario', 'miembro')");
                         });
+
+                    b.HasData(
+                        new
+                        {
+                            InitiativeId = 1,
+                            UserId = 3,
+                            JoinedAt = new DateTime(2026, 10, 1, 15, 0, 0, 0, DateTimeKind.Utc),
+                            Role = "propietario"
+                        },
+                        new
+                        {
+                            InitiativeId = 1,
+                            UserId = 1,
+                            JoinedAt = new DateTime(2026, 10, 3, 9, 0, 0, 0, DateTimeKind.Utc),
+                            Role = "miembro"
+                        },
+                        new
+                        {
+                            InitiativeId = 1,
+                            UserId = 2,
+                            JoinedAt = new DateTime(2026, 10, 4, 9, 0, 0, 0, DateTimeKind.Utc),
+                            Role = "miembro"
+                        },
+                        new
+                        {
+                            InitiativeId = 2,
+                            UserId = 1,
+                            JoinedAt = new DateTime(2026, 10, 2, 15, 0, 0, 0, DateTimeKind.Utc),
+                            Role = "propietario"
+                        },
+                        new
+                        {
+                            InitiativeId = 3,
+                            UserId = 2,
+                            JoinedAt = new DateTime(2026, 10, 3, 15, 0, 0, 0, DateTimeKind.Utc),
+                            Role = "propietario"
+                        },
+                        new
+                        {
+                            InitiativeId = 3,
+                            UserId = 4,
+                            JoinedAt = new DateTime(2026, 10, 5, 9, 0, 0, 0, DateTimeKind.Utc),
+                            Role = "miembro"
+                        },
+                        new
+                        {
+                            InitiativeId = 4,
+                            UserId = 4,
+                            JoinedAt = new DateTime(2026, 10, 4, 15, 0, 0, 0, DateTimeKind.Utc),
+                            Role = "propietario"
+                        });
                 });
 
             modelBuilder.Entity("ServidorNet.Modelos.InitiativeTag", b =>
@@ -171,6 +338,33 @@ namespace ServidorNet.Migrations
                     b.HasKey("InitiativeId", "Value");
 
                     b.ToTable("InitiativeTags");
+
+                    b.HasData(
+                        new
+                        {
+                            InitiativeId = 1,
+                            Value = "voluntariado"
+                        },
+                        new
+                        {
+                            InitiativeId = 1,
+                            Value = "comunidad"
+                        },
+                        new
+                        {
+                            InitiativeId = 2,
+                            Value = "educacion"
+                        },
+                        new
+                        {
+                            InitiativeId = 3,
+                            Value = "datos"
+                        },
+                        new
+                        {
+                            InitiativeId = 4,
+                            Value = "sostenibilidad"
+                        });
                 });
 
             modelBuilder.Entity("ServidorNet.Modelos.Project", b =>
@@ -230,6 +424,21 @@ namespace ServidorNet.Migrations
                     b.ToTable("Projects", t =>
                         {
                             t.HasCheckConstraint("CK_Projects_Status", "[Status] IN ('planificacion', 'activo', 'finalizado')");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2026, 10, 8, 15, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Plataforma para publicar turnos de voluntariado, asignar participantes y registrar las horas cumplidas.",
+                            InitiativeId = 1,
+                            Name = "Voluntariado Conectado",
+                            Objective = "Reducir los turnos duplicados y automatizar el registro de horas para certificados.",
+                            OwnerId = 3,
+                            RepositoryUrl = "https://github.com/vitejs/vite",
+                            StartDate = new DateOnly(2026, 10, 10),
+                            Status = "activo"
                         });
                 });
 
@@ -301,6 +510,35 @@ namespace ServidorNet.Migrations
 
                             t.HasCheckConstraint("CK_Requests_Status", "[Status] IN ('pendiente', 'aceptada', 'rechazada', 'cancelada')");
                         });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ApplicantId = 2,
+                            Availability = "alta",
+                            CreatedAt = new DateTime(2026, 10, 6, 10, 0, 0, 0, DateTimeKind.Utc),
+                            DesiredRole = "Diseñadora de base de datos",
+                            InitiativeId = 2,
+                            MainSkill = "Bases de datos",
+                            Message = "Me interesa aportar con el diseño del modelo de datos del proyecto.",
+                            Status = "pendiente",
+                            UpdatedAt = new DateTime(2026, 10, 6, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ApplicantId = 1,
+                            Availability = "media",
+                            CreatedAt = new DateTime(2026, 10, 6, 11, 0, 0, 0, DateTimeKind.Utc),
+                            DesiredRole = "Desarrolladora frontend",
+                            InitiativeId = 3,
+                            MainSkill = "React",
+                            Message = "Quiero construir la interfaz de visualizacion de datos con React.",
+                            ResolvedAt = new DateTime(2026, 10, 7, 9, 0, 0, 0, DateTimeKind.Utc),
+                            Status = "rechazada",
+                            UpdatedAt = new DateTime(2026, 10, 7, 9, 0, 0, 0, DateTimeKind.Utc)
+                        });
                 });
 
             modelBuilder.Entity("ServidorNet.Modelos.Skill", b =>
@@ -327,6 +565,38 @@ namespace ServidorNet.Migrations
                         .IsUnique();
 
                     b.ToTable("Skills");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Key = "react",
+                            Name = "React"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Key = "sql",
+                            Name = "SQL"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Key = "bases de datos",
+                            Name = "Bases de datos"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Key = "node.js",
+                            Name = "Node.js"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Key = "diseno de interfaces",
+                            Name = "Diseño de interfaces"
+                        });
                 });
 
             modelBuilder.Entity("ServidorNet.Modelos.User", b =>
@@ -387,6 +657,52 @@ namespace ServidorNet.Migrations
                         {
                             t.HasCheckConstraint("CK_Users_Availability", "[Availability] IN ('alta', 'media', 'baja')");
                         });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Availability = "media",
+                            Bio = "",
+                            Career = "Ingenieria de Software",
+                            CreatedAt = new DateTime(2026, 10, 1, 10, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "andreina.leal@example.com",
+                            Name = "Andreina Leal",
+                            UpdatedAt = new DateTime(2026, 10, 1, 10, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Availability = "alta",
+                            Bio = "",
+                            Career = "Ingenieria de Software",
+                            CreatedAt = new DateTime(2026, 10, 1, 11, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "tatiana.solis@example.com",
+                            Name = "Tatiana Solis",
+                            UpdatedAt = new DateTime(2026, 10, 1, 11, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Availability = "baja",
+                            Bio = "",
+                            Career = "Administracion de Empresas",
+                            CreatedAt = new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "carlos.mora@example.com",
+                            Name = "Carlos Mora",
+                            UpdatedAt = new DateTime(2026, 10, 1, 12, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Availability = "media",
+                            Bio = "",
+                            Career = "Diseno Grafico",
+                            CreatedAt = new DateTime(2026, 10, 1, 13, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "daniela.rojas@example.com",
+                            Name = "Daniela Rojas",
+                            UpdatedAt = new DateTime(2026, 10, 1, 13, 0, 0, 0, DateTimeKind.Utc)
+                        });
                 });
 
             modelBuilder.Entity("UserSkills", b =>
@@ -402,6 +718,43 @@ namespace ServidorNet.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserSkills");
+
+                    b.HasData(
+                        new
+                        {
+                            SkillId = 1,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            SkillId = 5,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            SkillId = 4,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            SkillId = 2,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            SkillId = 3,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            SkillId = 4,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            SkillId = 5,
+                            UserId = 4
+                        });
                 });
 
             modelBuilder.Entity("InitiativeSkills", b =>

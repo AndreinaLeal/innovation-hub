@@ -37,7 +37,8 @@ public class InnovationHubDbContext(DbContextOptions<InnovationHubDbContext> opc
             u.HasMany(x => x.Skills).WithMany(s => s.Users).UsingEntity<Dictionary<string, object>>(
                 "UserSkills",
                 j => j.HasOne<Skill>().WithMany().HasForeignKey("SkillId").OnDelete(DeleteBehavior.Restrict),
-                j => j.HasOne<User>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.Cascade));
+                j => j.HasOne<User>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.Cascade),
+                j => j.HasData(DatosIniciales.UsuariosCompetencias));
         });
 
         // ---------- skills ----------
@@ -88,7 +89,8 @@ public class InnovationHubDbContext(DbContextOptions<InnovationHubDbContext> opc
             i.HasMany(x => x.Skills).WithMany(s => s.Initiatives).UsingEntity<Dictionary<string, object>>(
                 "InitiativeSkills",
                 j => j.HasOne<Skill>().WithMany().HasForeignKey("SkillId").OnDelete(DeleteBehavior.Restrict),
-                j => j.HasOne<Initiative>().WithMany().HasForeignKey("InitiativeId").OnDelete(DeleteBehavior.Cascade));
+                j => j.HasOne<Initiative>().WithMany().HasForeignKey("InitiativeId").OnDelete(DeleteBehavior.Cascade),
+                j => j.HasData(DatosIniciales.IniciativasCompetencias));
         });
 
         // ---------- initiative_tags ----------
@@ -173,5 +175,7 @@ public class InnovationHubDbContext(DbContextOptions<InnovationHubDbContext> opc
             p.HasOne(x => x.Owner).WithMany(u => u.OwnedProjects)
                 .HasForeignKey(x => x.OwnerId).OnDelete(DeleteBehavior.Restrict);
         });
+
+        DatosIniciales.Sembrar(modelBuilder);
     }
 }
